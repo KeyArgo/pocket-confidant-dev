@@ -1,0 +1,24 @@
+# Pocket Confidant — Hugging Face Space dependencies
+#
+# On the Space the small chat model runs LOCALLY via llama-cpp-python (real
+# llama.cpp, GGUF weights) — NOT via ollama. Ollama is only used in local dev.
+# This is what earns the 🦙 Llama Champion badge and keeps us 🔌 Off the Grid:
+# no cloud inference APIs, all generation happens on the Space's own hardware.
+
+# Pinned to the major verified in local dev (Gradio 6.x). The app is written to
+# work on both 4.x and 6.x (it feature-detects where css/theme belong), but we
+# pin to what we actually launched + smoke-tested to avoid Space-only surprises.
+gradio>=6.0,<7
+requests>=2.31,<3
+
+# Llama Champion path: local GGUF inference on the Space.
+# Pinning the minor line keeps the Space build reproducible. If the Space build
+# is CPU-only, a prebuilt CPU wheel is used; on GPU/ZeroGPU, build with CUDA.
+llama-cpp-python>=0.3.2,<0.4
+
+# huggingface_hub lets app.py pull the GGUF weights at startup
+# (hf_hub_download) instead of baking a multi-GB file into the repo.
+huggingface_hub>=0.24,<1
+
+# numpy is pulled in transitively by llama-cpp-python; pin loosely for stable builds.
+numpy>=1.26,<3
