@@ -1,0 +1,8 @@
+=== Pocket Confidant — model A/B warmth eval ===
+models under test: qwen3:8b, gemma4:e4b, qwen3.5:9b, minicpm-v:latest
+(fresh isolated JournalStore per model; 6 simulated days each; no cloud)
+
+>>> running qwen3:8b ...
+    done in 33s
+
+>>> running gemma4:e4b ...

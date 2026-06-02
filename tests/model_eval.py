@@ -286,8 +286,35 @@ def print_recommendation(results: list[ModelResult]) -> None:
     print("#" * 88)
 
 
+class _Tee:
+    """Mirror stdout to a report file so the full transcript is always durable
+    (some harnesses/pipes drop un-flushed block-buffered output)."""
+
+    def __init__(self, *streams):
+        self._streams = streams
+
+    def write(self, data):
+        for s in self._streams:
+            s.write(data)
+            s.flush()
+        return len(data)
+
+    def flush(self):
+        for s in self._streams:
+            s.flush()
+
+
 def main() -> int:
-    models = [sys.argv[1]] if len(sys.argv) > 1 else MODELS
+    # First arg picks a single model; "", "-", or "all" means all candidates.
+    arg1 = sys.argv[1] if len(sys.argv) > 1 else ""
+    models = MODELS if arg1 in ("", "-", "all") else [arg1]
+
+    # Always mirror the full report to a file next to this script. Pass a path as a
+    # second arg to override (e.g. python tests/model_eval.py qwen3:8b /tmp/eval.txt).
+    out_path = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(__file__).resolve().parent / "model_eval_report.txt"
+    report_fh = open(out_path, "w")
+    sys.stdout = _Tee(sys.__stdout__, report_fh)
+
     print(f"=== Pocket Confidant — model A/B warmth eval ===")
     print(f"models under test: {', '.join(models)}")
     print(f"(fresh isolated JournalStore per model; {len(WEEK)} simulated days each; no cloud)\n")
@@ -307,6 +334,10 @@ def main() -> int:
     print()
     print_per_day(results)
     print_recommendation(results)
+    print(f"\n(full report mirrored to {out_path})")
+
+    sys.stdout = sys.__stdout__
+    report_fh.close()
 
     # Exit non-zero only if EVERY model failed entirely — partial runs still useful.
     all_dead = all(not mr._ok_days() for mr in results)

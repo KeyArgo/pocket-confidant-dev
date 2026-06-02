@@ -40,9 +40,12 @@ DB_PATH = os.environ.get(
     "POCKET_CONFIDANT_DB", str(Path.home() / ".pocket-confidant" / "journal.db")
 )
 
-# Small models the user can pick between. Default is the warm-tuned qwen3:8b.
-MODELS = ["qwen3:8b", "gemma4:e4b", "minicpm-v:latest"]
-DEFAULT_MODEL = confidant.DEFAULT_MODEL  # "qwen3:8b"
+# Small models the user can pick between, ranked by a warmth/specificity bake-off
+# (tests/model_eval.py): qwen3.5:9b warmest, minicpm-v close 2nd + best specificity
+# (and OpenBMB sponsor -> $10k category), qwen3:8b a touch wordy, gemma4:e4b too long.
+MODELS = ["qwen3.5:9b", "minicpm-v:latest", "qwen3:8b", "gemma4:e4b"]
+# Default can be overridden at runtime via POCKET_CONFIDANT_MODEL.
+DEFAULT_MODEL = os.environ.get("POCKET_CONFIDANT_MODEL", "qwen3.5:9b")
 
 _THEME_CSS = (Path(__file__).resolve().parent / "theme.css").read_text(encoding="utf-8")
 
