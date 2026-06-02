@@ -43,9 +43,11 @@ DB_PATH = os.environ.get(
 # Small models the user can pick between, ranked by a warmth/specificity bake-off
 # (tests/model_eval.py): qwen3.5:9b warmest, minicpm-v close 2nd + best specificity
 # (and OpenBMB sponsor -> $10k category), qwen3:8b a touch wordy, gemma4:e4b too long.
-MODELS = ["qwen3.5:9b", "minicpm-v:latest", "qwen3:8b", "gemma4:e4b"]
-# Default can be overridden at runtime via POCKET_CONFIDANT_MODEL.
-DEFAULT_MODEL = os.environ.get("POCKET_CONFIDANT_MODEL", "qwen3.5:9b")
+MODELS = ["minicpm-v:latest", "qwen3.5:9b", "qwen3:8b", "gemma4:e4b"]
+# Default = MiniCPM (OpenBMB sponsor) to compete in their $10k category; ~tied on
+# warmth with qwen3.5:9b but best specificity. Override via POCKET_CONFIDANT_MODEL
+# (e.g. set qwen3.5:9b if live journaling reveals it feels warmer to you).
+DEFAULT_MODEL = os.environ.get("POCKET_CONFIDANT_MODEL", "minicpm-v:latest")
 
 _THEME_CSS = (Path(__file__).resolve().parent / "theme.css").read_text(encoding="utf-8")
 
