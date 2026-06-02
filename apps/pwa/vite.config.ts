@@ -40,6 +40,21 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        // Split the two heavy on-device AI libs into their own vendor chunks so the
+        // app shell loads fast. WebLLM (~MBs) and transformers.js (ONNX runtime) are
+        // pulled in via dynamic import paths and only fetched when the user starts
+        // the model / embedder — they should not bloat the initial shell bundle.
+        manualChunks(id) {
+          if (id.includes("@mlc-ai/web-llm")) return "web-llm";
+          if (id.includes("@huggingface/transformers")) return "transformers";
+          return undefined;
+        },
+      },
+    },
+  },
   test: {
     globals: true,
     environment: "node",

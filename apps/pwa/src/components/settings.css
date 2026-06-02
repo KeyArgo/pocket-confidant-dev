@@ -1,0 +1,48 @@
+/* Scoped styles for Settings + Paywall. New file — the integrator imports this
+   once (e.g. in App.tsx or main.tsx). Reuses the existing CSS vars + .card/.chip/
+   .hint/.primary/.quiet from styles.css; only adds layout the warm theme lacks. */
+
+.settings { display: flex; flex-direction: column; }
+
+.settings-h {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+  color: var(--ink);
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0.4rem 0;
+}
+.settings-label { color: var(--muted); font-size: 0.92rem; }
+
+.settings-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.3rem; }
+
+.pro-card { border-color: var(--accent); }
+.pro-list { list-style: none; padding: 0; margin: 0.5rem 0 0.9rem; }
+.pro-list li { margin: 0.45rem 0; line-height: 1.4; }
+.pro-feature { font-family: var(--serif); color: var(--accent); }
+
+/* Paywall: gentle centered modal, equal-weight dismiss. */
+.paywall-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(58, 52, 43, 0.35);
+  backdrop-filter: blur(3px);
+  z-index: 50;
+}
+.paywall-card {
+  max-width: 420px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+}

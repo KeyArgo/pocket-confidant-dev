@@ -1,0 +1,108 @@
+/* Integration polish: semantic class hooks referenced by the fleet's components
+   (Welcome, ModelLoader, VoiceButton, LockScreen) plus a few layout tweaks the
+   base styles.css doesn't cover. Reuses the existing CSS vars + .card/.hint/etc.
+   Owned by the integrator (App seam); styles.css stays untouched. */
+
+/* Masthead: title + streak badge on one row. */
+.masthead-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* The Summary "Reflect back" chips: highlight the active panel like nav.on. */
+.chips button.quiet.on {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Write-screen tools row (voice button under the textarea). */
+.write-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+.voice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.voice-partial {
+  font-style: italic;
+  opacity: 0.85;
+}
+button.recording {
+  animation: pc-pulse 1.4s ease-in-out infinite;
+}
+@keyframes pc-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Settings view: stack the cards. */
+.settings-view { display: flex; flex-direction: column; }
+.enc-setup { margin-top: 0.6rem; }
+
+/* Welcome hero. */
+.welcome { display: flex; flex-direction: column; }
+.welcome-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: var(--accent);
+  margin: 0 0 0.3rem;
+  font-weight: 600;
+}
+.welcome-hero {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+.welcome-lede {
+  color: var(--ink);
+  line-height: 1.55;
+  margin: 0 0 1rem;
+}
+.welcome-points {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.welcome-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  line-height: 1.45;
+}
+.welcome-ic { font-size: 1.2rem; flex-shrink: 0; line-height: 1.2; }
+.welcome-cta { align-self: flex-start; }
+.welcome-fine { margin-top: 0.6rem; }
+
+/* ModelLoader extras. */
+.loader-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem;
+}
+.loader-facts {
+  margin: 0.7rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* LockScreen. */
+.lockscreen form { display: flex; flex-direction: column; }
+.lockscreen input { margin-top: 0.5rem; }
+.lockscreen button.primary { align-self: flex-start; }

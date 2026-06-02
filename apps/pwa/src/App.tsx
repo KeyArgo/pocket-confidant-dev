@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Entry } from "./lib/core/types";
 import { renderReflection } from "./lib/core/types";
 import { reflect } from "./lib/core/reflect";
@@ -16,9 +16,47 @@ import {
   allEntries,
   requestPersistence,
   exportJSON,
+  getMeta,
+  setMeta,
 } from "./lib/data/db";
+import {
+  encEnabled,
+  encSalt,
+  setEncSalt,
+  enableEncryption,
+  verifyKey,
+  encryptEntry,
+  decryptAll,
+  ENC_ENABLED_KEY,
+} from "./lib/data/encStore";
 
-type View = "write" | "history" | "ask";
+// Feature components built by the fleet.
+import MoodEnergyTag from "./components/MoodEnergyTag";
+import Trends from "./components/Trends";
+import Summary from "./components/Summary";
+import StreakBadge from "./components/StreakBadge";
+import ReminderSettings from "./components/ReminderSettings";
+import Settings from "./components/Settings";
+import Paywall from "./components/Paywall";
+import VoiceButton from "./components/VoiceButton";
+import LockScreen from "./components/LockScreen";
+import Welcome from "./components/Welcome";
+import ModelLoader from "./components/ModelLoader";
+
+// Feature logic.
+import { maybeNotify } from "./lib/features/reminders";
+import {
+  getTier,
+  setTier as persistTier,
+  isAllowed,
+  type Tier,
+  type Feature,
+} from "./lib/features/entitlements";
+
+import "./components/settings.css";
+import "./integration.css";
+
+type View = "write" | "ask" | "insights" | "reflect" | "history" | "settings";
 
 function today(): string {
   return new Date().toISOString().slice(0, 10);
@@ -31,6 +69,10 @@ export function App() {
   const [busy, setBusy] = useState(false);
   const [lastReflection, setLastReflection] = useState<string | null>(null);
 
+  // Mood/energy tags for the entry being written.
+  const [mood, setMood] = useState<number | null>(null);
+  const [energy, setEnergy] = useState<number | null>(null);
+
   // Model lifecycle
   const [modelReady, setModelReady] = useState(false);
   const [loadPct, setLoadPct] = useState(0);
@@ -42,12 +84,46 @@ export function App() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState<AskResult | null>(null);
 
+  // Onboarding (first-run welcome). null = still loading the flag.
+  const [seenWelcome, setSeenWelcome] = useState<boolean | null>(null);
+
+  // Entitlements + paywall.
+  const [tier, setTier] = useState<Tier>("free");
+  const [paywallFor, setPaywallFor] = useState<string | null>(null);
+
+  // Encryption-at-rest (optional, OFF by default).
+  const [encOn, setEncOn] = useState(false);
+  const [salt, setSalt] = useState<string | null>(null);
+  const [key, setKey] = useState<CryptoKey | null>(null);
+  const [keyError, setKeyError] = useState<string | null>(null);
+  // The SETUP LockScreen mints a salt and passes it to onSetup *before* onUnlock;
+  // we stash it here so onUnlock can persist a salt that matches the derived key.
+  const pendingSalt = useRef<string | null>(null);
+  // While encryption is on but we have no key yet, the journal is locked.
+  const locked = encOn && key === null;
+
+  // Boot: load entries, flags, tier, encryption state; warm the embedder.
   useEffect(() => {
     (async () => {
       await requestPersistence();
-      setEntries(await allEntries());
+      const [welcome, t, on, s] = await Promise.all([
+        getMeta<boolean>("seenWelcome"),
+        getTier(),
+        encEnabled(),
+        encSalt(),
+      ]);
+      setSeenWelcome(welcome ?? false);
+      setTier(t);
+      setEncOn(on);
+      setSalt(s);
+      // Only safe to read entries into the plaintext UI when not locked.
+      if (!on) {
+        setEntries(await allEntries());
+      }
       // Warm the small embedder immediately — recall/ask work even without WebGPU.
       initEmbedder().catch(() => {});
+      // Opportunistic, gentle reminder when the app is opened.
+      void maybeNotify();
     })();
   }, []);
 
@@ -86,7 +162,7 @@ export function App() {
     try {
       const vec = await embed(text).catch(() => null);
       let reflectionText = "";
-      let question = "";
+      let q = "";
       let callback = "";
       const model = currentModel() ?? "(none)";
       if (modelReady) {
@@ -98,25 +174,39 @@ export function App() {
           recentOpeners,
         });
         reflectionText = r.reflection;
-        question = r.question;
+        q = r.question;
         callback = r.callback;
         setLastReflection(renderReflection(r));
       }
+      // Encrypt text/reflection at rest when a key is held.
+      const wrapped = await encryptEntry(
+        { text, reflection: reflectionText, encrypted: false },
+        key,
+      );
       const saved = await addEntry({
         ts: Date.now(),
         day: today(),
-        text,
-        reflection: reflectionText,
-        question,
+        text: wrapped.text,
+        reflection: wrapped.reflection,
+        question: q,
         callback,
         embedding: vec,
-        mood: null,
-        energy: null,
+        mood,
+        energy,
         model,
-        encrypted: false,
+        encrypted: wrapped.encrypted,
       });
-      setEntries((prev) => [...prev, saved]);
+      // Keep the in-memory copy as plaintext for display/recall.
+      const plain: Entry = {
+        ...saved,
+        text,
+        reflection: reflectionText,
+        encrypted: false,
+      };
+      setEntries((prev) => [...prev, plain]);
       setDraft("");
+      setMood(null);
+      setEnergy(null);
     } finally {
       setBusy(false);
     }
@@ -125,6 +215,10 @@ export function App() {
   async function ask() {
     const q = question.trim();
     if (!q || busy) return;
+    if (!isAllowed("basic-ask", tier)) {
+      setPaywallFor("unlimited-ask");
+      return;
+    }
     setBusy(true);
     setAnswer(null);
     try {
@@ -136,6 +230,10 @@ export function App() {
   }
 
   async function doExport() {
+    if (!isAllowed("export", tier)) {
+      setPaywallFor("export");
+      return;
+    }
     const json = await exportJSON();
     const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -146,53 +244,145 @@ export function App() {
     URL.revokeObjectURL(url);
   }
 
+  // Gate a Pro-only view: navigate if allowed, else surface the paywall.
+  function goto(target: View, feature?: Feature) {
+    if (feature && !isAllowed(feature, tier)) {
+      setPaywallFor(feature);
+      return;
+    }
+    setView(target);
+  }
+
+  // --- Encryption unlock (existing journal) ------------------------------
+  async function onUnlock(k: CryptoKey) {
+    setKeyError(null);
+    const ok = await verifyKey(k);
+    if (!ok) {
+      setKey(null);
+      setKeyError("That passphrase didn't unlock your journal. Try again.");
+      return;
+    }
+    setKey(k);
+    const all = await allEntries();
+    setEntries(await decryptAll(all, k));
+  }
+
+  // --- Encryption enable (from Settings, SETUP mode) ---------------------
+  // LockScreen(saltB64=null) mints a salt -> onSetup(salt) -> onUnlock(key).
+  // We capture the salt in onSetup, then finalize in onUnlock.
+  async function finalizeEnable(k: CryptoKey) {
+    const s = pendingSalt.current;
+    if (!s) return;
+    await setEncSalt(s);
+    await enableEncryption(k);
+    pendingSalt.current = null;
+    setSalt(s);
+    setEncOn(true);
+    setKey(k);
+    setKeyError(null);
+  }
+
+  async function disableEncryptionFlow() {
+    await setMeta(ENC_ENABLED_KEY, false);
+    setEncOn(false);
+    setKey(null);
+    setKeyError(null);
+    setEntries(await allEntries());
+  }
+
   const byDayDesc = [...entries].reverse();
+
+  // 1) First-run welcome takeover.
+  if (seenWelcome === false) {
+    return (
+      <div className="app">
+        <header className="masthead">
+          <h1>Pocket Confidant</h1>
+        </header>
+        <Welcome
+          webgpu={webgpu}
+          onBegin={() => {
+            setSeenWelcome(true);
+            void setMeta("seenWelcome", true);
+          }}
+        />
+      </div>
+    );
+  }
+
+  // Avoid a flash before the flag resolves.
+  if (seenWelcome === null) {
+    return (
+      <div className="app">
+        <header className="masthead">
+          <h1>Pocket Confidant</h1>
+        </header>
+      </div>
+    );
+  }
+
+  // 2) Encryption lock gate (only when encryption is enabled and not yet unlocked).
+  if (locked) {
+    return (
+      <div className="app">
+        <header className="masthead">
+          <h1>Pocket Confidant</h1>
+          <p className="tagline">Your private mind, understood — 100% on your device.</p>
+        </header>
+        {keyError && <p className="hint error">{keyError}</p>}
+        <LockScreen
+          saltB64={salt}
+          onSetup={(s) => void setEncSalt(s)}
+          onUnlock={(k) => void onUnlock(k)}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="app">
       <header className="masthead">
-        <h1>Pocket Confidant</h1>
+        <div className="masthead-top">
+          <h1>Pocket Confidant</h1>
+          <StreakBadge entries={entries} />
+        </div>
         <p className="tagline">Your private mind, understood — 100% on your device.</p>
         <nav>
           <button className={view === "write" ? "on" : ""} onClick={() => setView("write")}>
             Write
           </button>
           <button className={view === "ask" ? "on" : ""} onClick={() => setView("ask")}>
-            Ask your journal
+            Ask
+          </button>
+          <button
+            className={view === "insights" ? "on" : ""}
+            onClick={() => goto("insights", "trends")}
+          >
+            Insights
+          </button>
+          <button
+            className={view === "reflect" ? "on" : ""}
+            onClick={() => goto("reflect", "yearly-summary")}
+          >
+            Reflect back
           </button>
           <button className={view === "history" ? "on" : ""} onClick={() => setView("history")}>
             History
           </button>
+          <button className={view === "settings" ? "on" : ""} onClick={() => setView("settings")}>
+            Settings
+          </button>
         </nav>
       </header>
 
-      {!modelReady && (
-        <section className="loader card">
-          {loadPct === 0 && !loadError && (
-            <>
-              <p>
-                Set up your private companion. This downloads a small model{" "}
-                <strong>once</strong> — then it’s instant, offline, and nothing ever
-                leaves this device.
-              </p>
-              <button className="primary" onClick={startModel}>
-                {webgpu ? "Set up (one-time)" : "Continue without reflections"}
-              </button>
-              <p className="hint">You can start writing below while it loads.</p>
-            </>
-          )}
-          {loadPct > 0 && (
-            <>
-              <div className="bar">
-                <div className="fill" style={{ width: `${loadPct}%` }} />
-              </div>
-              <p className="hint">
-                {loadPct}% · {loadMsg || "downloading…"} (resumes if interrupted)
-              </p>
-            </>
-          )}
-          {loadError && <p className="hint error">{loadError}</p>}
-        </section>
+      {!modelReady && view === "write" && (
+        <ModelLoader
+          pct={loadPct}
+          msg={loadMsg}
+          error={loadError}
+          onStart={startModel}
+          webgpu={webgpu}
+        />
       )}
 
       {view === "write" && (
@@ -202,6 +392,17 @@ export function App() {
             onChange={(e) => setDraft(e.target.value)}
             placeholder="What’s on your mind?"
             rows={7}
+          />
+          <div className="write-tools">
+            <VoiceButton onText={(t) => setDraft((d) => (d ? d + " " : "") + t)} />
+          </div>
+          <MoodEnergyTag
+            mood={mood}
+            energy={energy}
+            onChange={(m, e) => {
+              setMood(m);
+              setEnergy(e);
+            }}
           />
           <button className="primary" onClick={submitEntry} disabled={busy || !draft.trim()}>
             {busy ? "…" : modelReady ? "Reflect" : "Save entry"}
@@ -239,7 +440,9 @@ export function App() {
               Ask
             </button>
           </div>
-          {!modelReady && <p className="hint">Set up the model above to ask questions.</p>}
+          {!modelReady && (
+            <p className="hint">Set up the model on the Write tab to ask questions.</p>
+          )}
           {answer && (
             <div className="card reflection">
               <p>{answer.answer}</p>
@@ -256,6 +459,10 @@ export function App() {
           )}
         </section>
       )}
+
+      {view === "insights" && <Trends entries={entries} />}
+
+      {view === "reflect" && <Summary entries={entries} chat={chat} />}
 
       {view === "history" && (
         <section className="history">
@@ -279,6 +486,86 @@ export function App() {
           ))}
           {entries.length === 0 && <p className="empty">No entries yet.</p>}
         </section>
+      )}
+
+      {view === "settings" && (
+        <section className="settings-view">
+          <Settings
+            entries={entries}
+            onExport={doExport}
+            tier={tier}
+            onUpgrade={() => setPaywallFor("upgrade")}
+            modelInfo={currentModel() ?? "not loaded"}
+            webgpu={webgpu}
+          />
+
+          <ReminderSettings />
+
+          {/* Optional at-rest encryption. OFF by default; the app works without it. */}
+          <section className="card">
+            <strong style={{ fontFamily: "var(--serif)", fontSize: "1.05rem" }}>
+              At-rest encryption {encOn ? "(on)" : "(off)"}
+            </strong>
+            <p className="hint" style={{ marginTop: "0.4rem" }}>
+              Everything already stays on this device. Turning this on adds a
+              passphrase so new entries are encrypted in storage — if someone gets
+              your browser's data, they only see ciphertext. The passphrase is never
+              stored; lose it and those entries can't be recovered.
+            </p>
+            {!isAllowed("encryption", tier) ? (
+              <button className="quiet" onClick={() => setPaywallFor("encryption")}>
+                Encryption is a Pro feature
+              </button>
+            ) : encOn ? (
+              <button className="quiet" onClick={() => void disableEncryptionFlow()}>
+                Turn off encryption
+              </button>
+            ) : (
+              <div className="enc-setup">
+                {keyError && <p className="hint error">{keyError}</p>}
+                <LockScreen
+                  saltB64={null}
+                  onSetup={(s) => {
+                    pendingSalt.current = s;
+                  }}
+                  onUnlock={(k) => void finalizeEnable(k)}
+                />
+              </div>
+            )}
+          </section>
+
+          {/* Plan preview (no payments in v1). */}
+          <section className="card">
+            <strong style={{ fontFamily: "var(--serif)", fontSize: "1.05rem" }}>Plan</strong>
+            <p className="hint" style={{ marginTop: "0.4rem" }}>
+              You're on the <strong>{tier}</strong> plan. Payments aren't available
+              yet; you can preview Pro here.
+            </p>
+            <button
+              className="quiet"
+              onClick={async () => {
+                const next: Tier = tier === "pro" ? "free" : "pro";
+                await persistTier(next);
+                setTier(next);
+              }}
+            >
+              {tier === "pro" ? "Switch to free" : "Preview Pro"}
+            </button>
+          </section>
+        </section>
+      )}
+
+      {paywallFor && (
+        <Paywall
+          feature={paywallFor}
+          onClose={() => setPaywallFor(null)}
+          onUpgrade={async () => {
+            // No payments in v1 — preview Pro so the gated feature opens.
+            await persistTier("pro");
+            setTier("pro");
+            setPaywallFor(null);
+          }}
+        />
       )}
 
       <footer className="foot">
