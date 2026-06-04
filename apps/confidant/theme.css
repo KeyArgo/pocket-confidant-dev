@@ -227,5 +227,163 @@ button.pc-primary:hover, #pc-submit button:hover, .pc-primary button:hover {
   line-height: 1.7;
 }
 
+/* ---- Theme toggle button ----------------------------------------------- */
+#pc-theme-toggle {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  z-index: 1000;
+  background: var(--pc-paper-deep) !important;
+  border: 1px solid var(--pc-line) !important;
+  color: var(--pc-ink-soft) !important;
+  border-radius: 999px !important;
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  padding: 0 !important;
+  font-size: 1.1rem !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 6px var(--pc-shadow) !important;
+  transition: background 0.2s, color 0.2s !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+#pc-theme-toggle:hover {
+  background: var(--pc-accent) !important;
+  color: #fdf8f0 !important;
+}
+
 /* Hide Gradio footer branding to keep the off-brand feel. */
 footer { display: none !important; }
+
+/* ==========================================================================
+   DARK MODE
+   Gradio applies .dark to <body> or .gradio-container when the user picks
+   dark theme. We also respect prefers-color-scheme for OS-level dark mode.
+   ========================================================================== */
+
+/* Dark mode — triggered by Gradio's .dark class OR OS preference */
+.dark,
+.dark body,
+.dark .gradio-container,
+.dark .gradio-container .main,
+body.dark,
+.gradio-container.dark {
+
+  /* Paper → deep charcoal with warm undertone */
+  --pc-paper:      #1a1814;
+  --pc-paper-deep: #242019;
+  --pc-ink:        #e8e0d4;
+  --pc-ink-soft:   #a89e8e;
+  --pc-accent:     #d4956a;
+  --pc-accent-2:   #8aab78;
+  --pc-line:       #3a342b;
+  --pc-shadow:     rgba(0, 0, 0, 0.35);
+
+  background: var(--pc-paper) !important;
+  color: var(--pc-ink) !important;
+}
+
+/* Dark paper grain */
+.dark body,
+.dark .gradio-container,
+body.dark .gradio-container {
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(212,149,106,0.04), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(138,171,120,0.03), transparent 45%) !important;
+  background-attachment: fixed !important;
+}
+
+/* Dark textarea */
+.dark #pc-entry textarea,
+.dark #pc-entry textarea {
+  background: #1e1b16 !important;
+  border-color: var(--pc-line) !important;
+  color: var(--pc-ink) !important;
+}
+
+/* Dark cards */
+.dark .pc-card {
+  background: var(--pc-paper-deep) !important;
+  border-color: var(--pc-line) !important;
+  box-shadow: 0 3px 10px var(--pc-shadow) !important;
+}
+
+/* Dark callback */
+.dark .pc-card .pc-callback {
+  color: var(--pc-ink-soft) !important;
+  border-left-color: var(--pc-line) !important;
+}
+.dark .pc-card .pc-callback::before {
+  color: var(--pc-accent-2) !important;
+}
+
+/* Dark reflection */
+.dark .pc-card .pc-reflection {
+  color: var(--pc-ink) !important;
+}
+
+/* Dark week panel */
+.dark .pc-week {
+  background: #1e1b16 !important;
+  border-color: var(--pc-accent-2) !important;
+  color: var(--pc-ink) !important;
+}
+
+/* Dark timeline */
+.dark .pc-entry-block {
+  border-bottom-color: var(--pc-line) !important;
+}
+.dark .pc-entry-block .pc-text {
+  color: var(--pc-ink) !important;
+}
+.dark .pc-entry-block .pc-echo {
+  background: var(--pc-paper-deep) !important;
+  color: var(--pc-ink-soft) !important;
+}
+
+/* Dark empty state */
+.dark .pc-empty {
+  color: var(--pc-ink-soft) !important;
+}
+
+/* Dark model selector */
+.dark #pc-model {
+  color: var(--pc-ink) !important;
+}
+
+/* Dark button styles */
+.dark button.pc-primary,
+.dark #pc-submit button,
+.dark .pc-primary button {
+  background: var(--pc-accent) !important;
+  color: #1a1814 !important;
+}
+
+.dark .pc-quiet button {
+  border-color: var(--pc-line) !important;
+  color: var(--pc-ink-soft) !important;
+}
+
+/* Dark theme toggle */
+.dark #pc-theme-toggle {
+  background: var(--pc-paper-deep) !important;
+  border-color: var(--pc-line) !important;
+  color: var(--pc-ink-soft) !important;
+}
+
+/* OS-level dark mode fallback (when Gradio hasn't set .dark) */
+@media (prefers-color-scheme: dark) {
+  :root:not(.dark) {
+    --pc-paper:      #1a1814;
+    --pc-paper-deep: #242019;
+    --pc-ink:        #e8e0d4;
+    --pc-ink-soft:   #a89e8e;
+    --pc-accent:     #d4956a;
+    --pc-accent-2:   #8aab78;
+    --pc-line:       #3a342b;
+    --pc-shadow:     rgba(0, 0, 0, 0.35);
+  }
+}

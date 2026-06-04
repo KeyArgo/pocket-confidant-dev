@@ -47,7 +47,7 @@ MODELS = ["minicpm-v:latest", "qwen3.5:9b", "qwen3:8b", "gemma4:e4b"]
 # Default = MiniCPM (OpenBMB sponsor) to compete in their $10k category; ~tied on
 # warmth with qwen3.5:9b but best specificity. Override via POCKET_CONFIDANT_MODEL
 # (e.g. set qwen3.5:9b if live journaling reveals it feels warmer to you).
-DEFAULT_MODEL = os.environ.get("POCKET_CONFIDANT_MODEL", "minicpm-v:latest")
+DEFAULT_MODEL = os.environ.get("POCKET_CONFIDANT_MODEL", "qwen3.5:9b")
 
 _THEME_CSS = (Path(__file__).resolve().parent / "theme.css").read_text(encoding="utf-8")
 
@@ -216,6 +216,32 @@ def build() -> gr.Blocks:
         _blocks_kwargs.update(css=_THEME_CSS, theme=gr.themes.Base())
 
     with gr.Blocks(**_blocks_kwargs) as demo:
+        # Theme toggle button (sun/moon)
+        gr.HTML(
+            '<button id="pc-theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">☀️</button>'
+            '<script>'
+            'function toggleTheme() {'
+            '  const btn = document.getElementById("pc-theme-toggle");'
+            '  const isDark = document.body.classList.toggle("dark");'
+            '  if (isDark) {'
+            '    btn.textContent = "🌙";'
+            '    localStorage.setItem("pc-theme", "dark");'
+            '  } else {'
+            '    btn.textContent = "☀️";'
+            '    localStorage.setItem("pc-theme", "light");'
+            '  }'
+            '}'
+            'document.addEventListener("DOMContentLoaded", function() {'
+            '  const saved = localStorage.getItem("pc-theme");'
+            '  if (saved === "dark") {'
+            '    document.body.classList.add("dark");'
+            '    const btn = document.getElementById("pc-theme-toggle");'
+            '    if (btn) btn.textContent = "🌙";'
+            '  }'
+            '});'
+            '</script>'
+        )
+
         gr.HTML(
             '<div id="pc-masthead">'
             '<p class="pc-title">Pocket Confidant</p>'
