@@ -387,3 +387,33 @@ body.dark .gradio-container {
     --pc-shadow:     rgba(0, 0, 0, 0.35);
   }
 }
+
+/* ---- Submitted Entry Display ------------------------------------------- */
+.pc-submitted-entry {
+  background: var(--pc-paper-deep);
+  border: 1px solid var(--pc-line);
+  border-left: 3px solid var(--pc-accent);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 12px 0;
+}
+.pc-submitted-label {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pc-accent);
+  margin-bottom: 8px;
+}
+.pc-submitted-text {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--pc-ink);
+  white-space: pre-wrap;
+}
+.pc-submitted-date {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: var(--pc-ink-soft);
+  margin-top: 8px;
+}

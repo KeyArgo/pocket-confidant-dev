@@ -13,6 +13,7 @@ import math
 import sqlite3
 import time
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
@@ -20,6 +21,7 @@ import requests
 DEFAULT_DB = Path.home() / ".pocket-confidant" / "journal.db"
 EMBED_MODEL = "nomic-embed-text:latest"
 OLLAMA = "http://localhost:11434"
+DEMO_DATA_PATH = Path(__file__).parent.parent / "data" / "demo_entries.json"
 
 
 def embed(text: str, model: str = EMBED_MODEL, host: str = OLLAMA) -> list[float]:
@@ -147,3 +149,33 @@ class JournalStore:
 
     def close(self) -> None:
         self.conn.close()
+
+
+def seed_demo_data(db_path: Path | str) -> int:
+    conn = sqlite3.connect(str(db_path))
+    entries = json.loads(DEMO_DATA_PATH.read_text())
+    count = 0
+    for e in entries:
+        day = e["created_at"][:10]
+        try:
+            ts_str = e["created_at"]
+            if "." in ts_str:
+                ts_str = ts_str.split(".")[0]
+            ts_f = datetime.fromisoformat(ts_str).replace(tzinfo=timezone.utc).timestamp()
+        except Exception:
+            ts_f = 0.0
+        conn.execute(
+            "INSERT INTO entries (ts, day, text, reflection, question) VALUES (?,?,?,?,?)",
+            (ts_f, day, e["text"], e.get("reflection", ""), e.get("question", "")),
+        )
+        count += 1
+    conn.commit()
+    conn.close()
+    return count
+
+
+def is_db_empty(db_path: Path | str) -> bool:
+    conn = sqlite3.connect(str(db_path))
+    (row,) = conn.execute("SELECT COUNT(*) FROM entries").fetchone()
+    conn.close()
+    return row == 0

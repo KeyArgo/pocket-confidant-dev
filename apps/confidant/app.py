@@ -126,6 +126,7 @@ def on_submit(entry_text: str, model: str):
             "</div></div>",
             _timeline_html(),
             entry_text,
+            "",  # no submitted entry to display
         )
 
     model = model or DEFAULT_MODEL
@@ -154,8 +155,16 @@ def on_submit(entry_text: str, model: str):
         pass  # never lose the user's words to a storage hiccup in a demo
 
     card = _card_html(reflection, question, callback, used_model)
-    # Clear the textarea so the next entry starts fresh.
-    return card, _timeline_html(), ""
+    # Show the submitted entry above the reflection card
+    submitted_html = (
+        '<div class="pc-submitted-entry">'
+        '<div class="pc-submitted-label">Your entry</div>'
+        f'<div class="pc-submitted-text">{_esc(text)}</div>'
+        f'<div class="pc-submitted-date">{_esc(today)}</div>'
+        "</div>"
+    )
+    # Don't clear the textarea — keep it visible for reference
+    return card, _timeline_html(), entry_text, submitted_html
 
 
 def on_week(model: str):
@@ -176,10 +185,10 @@ def on_week(model: str):
         + "\n\nNow you are looking back over the last several journal entries at once."
     )
     user = (
-        "Here are this person's most recent journal entries, oldest first:\n"
+        "Here are your most recent journal entries, oldest first:\n"
         f"{joined}\n\n"
         "In 2-3 plain, warm sentences, gently reflect on any recurring threads, "
-        "tensions, or small shifts you notice across these days. Use their own "
+        "tensions, or small shifts you notice across these days. Use your own "
         "specifics. Do not diagnose, do not give advice, do not list. If there's "
         "no real pattern, say so honestly and briefly. Return plain prose only — "
         "no JSON, no headers."
@@ -199,6 +208,19 @@ def on_week(model: str):
         f"{_esc(note)}"
         "</div>"
     )
+
+
+# --------------------------------------------------------------------------- #
+# Analytics helpers
+# --------------------------------------------------------------------------- #
+def get_entry_stats():
+    from engine.analytics import get_entry_stats as _get
+    return _get(DB_PATH)
+
+
+def get_writing_streak():
+    from engine.analytics import get_writing_streak as _get
+    return _get(DB_PATH)
 
 
 # --------------------------------------------------------------------------- #
@@ -254,40 +276,53 @@ def build() -> gr.Blocks:
             "</div>"
         )
 
-        entry = gr.Textbox(
-            elem_id="pc-entry",
-            label="Today",
-            placeholder="What's on your mind today? Even one sentence is enough…",
-            lines=6,
-            show_label=False,
-        )
+        with gr.Tabs():
+            with gr.Tab("Journal"):
+                entry = gr.Textbox(
+                    elem_id="pc-entry",
+                    label="Today",
+                    placeholder="What's on your mind today? Even one sentence is enough…",
+                    lines=6,
+                    show_label=False,
+                )
 
-        with gr.Row():
-            submit = gr.Button("Reflect", elem_id="pc-submit", elem_classes=["pc-primary"])
-            week = gr.Button("This week", elem_classes=["pc-quiet"])
-            model = gr.Dropdown(
-                choices=MODELS,
-                value=DEFAULT_MODEL,
-                label="model",
-                elem_id="pc-model",
-                interactive=True,
-            )
+                with gr.Row():
+                    submit = gr.Button("Reflect", elem_id="pc-submit", elem_classes=["pc-primary"])
+                    week = gr.Button("This week", elem_classes=["pc-quiet"])
+                    model = gr.Dropdown(
+                        choices=MODELS,
+                        value=DEFAULT_MODEL,
+                        label="model",
+                        elem_id="pc-model",
+                        interactive=True,
+                    )
 
-        response = gr.HTML(value="")
-        week_panel = gr.HTML(value="")
-        timeline = gr.HTML(value=_timeline_html())
+                response = gr.HTML(value="")
+                submitted_entry = gr.HTML(value="")
+                week_panel = gr.HTML(value="")
+                timeline = gr.HTML(value=_timeline_html())
 
-        submit.click(
-            on_submit,
-            inputs=[entry, model],
-            outputs=[response, timeline, entry],
-        )
-        entry.submit(
-            on_submit,
-            inputs=[entry, model],
-            outputs=[response, timeline, entry],
-        )
-        week.click(on_week, inputs=[model], outputs=[week_panel])
+                submit.click(
+                    on_submit,
+                    inputs=[entry, model],
+                    outputs=[response, timeline, entry, submitted_entry],
+                )
+                entry.submit(
+                    on_submit,
+                    inputs=[entry, model],
+                    outputs=[response, timeline, entry, submitted_entry],
+                )
+                week.click(on_week, inputs=[model], outputs=[week_panel])
+
+            with gr.Tab("Insights"):
+                gr.Markdown("## Your Journal Insights")
+                stats = get_entry_stats()
+                streak = get_writing_streak()
+                gr.Markdown(
+                    f'**{stats["total_entries"]}** entries | **{stats["avg_words"]}** avg words'
+                    f' | **{streak["current"]}** day streak | **{streak["longest"]}** longest streak'
+                )
+                gr.Markdown("*Charts coming soon!*")
 
     # Remember whether the theme/css still need to be supplied at launch() time.
     demo._pc_needs_launch_css = not _accepts_ctor_css

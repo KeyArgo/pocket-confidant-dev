@@ -1,0 +1,2306 @@
+[
+  {
+    "created_at": "2026-05-28T00:00:00",
+    "text": "Had that dentist appointment today. The hygienist said my gums look better than last time — the new flossing routine is paying off. Still hate the sound of the drill though. Sat in the waiting room listening to bad elevator music for 20 minutes before they called me.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-29T01:00:00",
+    "text": "Tried that new ramen place on 5th Street. The tonkotsu was solid but the broth was way too salty. Sat at the bar and watched the chef work — kind of meditative. Might go back for the spicy miso.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-30T02:00:00",
+    "text": "Skipped my morning run again. The couch was just too comfortable at 6am. Told myself I'd go after work but then it rained. At least I walked to the store instead of driving, so that's something.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-31T03:00:00",
+    "text": "Couldn't fall asleep until almost 2am. Laid there scrolling through my phone like an idiot. Woke up exhausted and snapped at coworkers about the budget spreadsheet. Not my best day.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-01T04:00:00",
+    "text": "Mom called. She wants to visit next weekend and I haven't cleaned the guest room since last Thanksgiving. She also asked about the promotion again — I don't have the heart to tell her I'm not even sure I want it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-02T05:00:00",
+    "text": "Finally went for that run. Only 2 miles but the air felt amazing. Saw a neighbor walking her dog — the one with the tiny greyhound that always looks confused. We waved. Small thing but it made the whole morning better.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-03T06:00:00",
+    "text": "Woke up tired again but made coffee and sat on the porch for 10 minutes before starting work. Just watched the birds at the feeder. No phone, no agenda. It was the calmest part of my week.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-03T16:41:05.485719",
+    "text": "Going to the dentist tomorrow, nervous about the drill",
+    "reflection": "The thought of sitting in the chair tomorrow with that loud drill spinning again has you feeling tight before you've even left the house. It sounds like a familiar fear waiting to ambush you.",
+    "question": "What is the very first image or feeling that pops up in your mind when you picture the drill starting?"
+  },
+  {
+    "created_at": "2026-06-03T16:42:23.545330",
+    "text": "Going to the dentist tomorrow, nervous about the drill",
+    "reflection": "The sound of the drill is still the part that scares you, even though your gums are looking better now.",
+    "question": "What is one small thing about the waiting room that feels familiar to you?"
+  },
+  {
+    "created_at": "2026-06-03T16:42:55.862272",
+    "text": "Went for a run this morning, saw the confused greyhound",
+    "reflection": "Seeing that same confused greyhound again today felt like a quiet echo of the wave you shared last week, turning another morning into something small but better.",
+    "question": "What did it feel like to see that familiar, slightly puzzled face again?"
+  },
+  {
+    "created_at": "2026-06-03T16:44:03.856026",
+    "text": "Made pasta tonight, tried a new recipe",
+    "reflection": "You made pasta with a new recipe tonight, settling into the quiet routine of cooking.",
+    "question": "Was the process of trying this new dish as meditative as watching the ramen chef was for you last month?"
+  },
+  {
+    "created_at": "2026-06-04T15:19:49.957493",
+    "text": "went to bed at 7:30 am today...pulled an all nighter working on ai",
+    "reflection": "You mentioned going to bed early and pulling an all-nighter working on AI.",
+    "question": "What was it like staying up late for that work project?"
+  },
+  {
+    "created_at": "2026-06-06T00:00:00",
+    "text": "Lost three hours on the side project tonight and didn't notice the time. First time in weeks I actually felt like myself.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-07T00:00:00",
+    "text": "Mom called while I was trying to cook. I love her, but the phone calls leave me weirdly drained.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-08T00:00:00",
+    "text": "Forgot my vitamins again. I keep meaning to make mornings simpler instead of relying on memory.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-09T00:00:00",
+    "text": "Worked late and skipped the walk. I miss having one hour that is just mine.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-10T00:00:00",
+    "text": "Coffee on the porch helped. Ten quiet minutes before the day got loud.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-01T00:00:00",
+    "text": "Moved into the new apartment today. Boxes everywhere but the light through the kitchen window is good.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-02T00:00:00",
+    "text": "Unpacking. Found the old camping stove under Dad's things. Made coffee on it. Felt like a small victory.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-03T00:00:00",
+    "text": "Called Mom. She asked if the apartment has a good closet. It does. She'll be relieved.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-04T00:00:00",
+    "text": "Independence Day. The neighbors are setting off fireworks. I watched from the porch with a beer. Quiet celebration.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-05T00:00:00",
+    "text": "Walked to the corner store. Chris at the register remembered my name already. Nice guy.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-06T00:00:00",
+    "text": "Sunday cooking. Made a big batch of pasta sauce. The kitchen smells like home now.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-07T00:00:00",
+    "text": "First morning coffee on the porch. The neighborhood is quieter than the old place. I needed quiet.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-08T00:00:00",
+    "text": "Work was productive. Tom seems pleased with the new setup. I'm settling into the commute.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-09T00:00:00",
+    "text": "Sarah came over to help unpack. We ordered Thai and sat on the floor because I still don't have a dining table.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-10T00:00:00",
+    "text": "Yoga with Maria for the first time. She moves slowly and deliberately. I liked the pace.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-11T00:00:00",
+    "text": "Started thinking about the community garden plot. Yuki mentioned there's one available on Elm Street.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-12T00:00:00",
+    "text": "Friday movie night. Watched an old film on my laptop. The screen is small but the stories are big.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-13T00:00:00",
+    "text": "Sunday cooking. Made a big pot of soup. The kitchen is small but everything works.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-14T00:00:00",
+    "text": "Walked past the community garden. People were weeding and chatting. It looked peaceful.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-15T00:00:00",
+    "text": "Tom sent an email at 9pm. I didn't reply until morning. Small boundary, but it felt important.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-16T00:00:00",
+    "text": "Rain all afternoon. Read on the couch. The sound on the roof was steady and kind.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-17T00:00:00",
+    "text": "Took the long way home from the store just to walk. The air smelled like cut grass and something blooming.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-18T00:00:00",
+    "text": "Thursday chess with Daniel. He beat me twice. I need to stop being predictable.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-19T00:00:00",
+    "text": "Raj and I grabbed lunch. He's thinking about switching teams. I told him I'd miss him but I get it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-20T00:00:00",
+    "text": "Morning coffee. The porch has a good view of the old oak tree across the street. I'm going to like this.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-21T00:00:00",
+    "text": "Yuki and I signed up for the community garden plot. We're splitting it down the middle. She wants tomatoes, I want herbs.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-22T00:00:00",
+    "text": "Work dinner with the team. I almost didn't go but Raj convinced me. It was actually nice.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-23T00:00:00",
+    "text": "Couldn't sleep. Read until 2am. The book is about a woman who starts over in a new city. Not subtle, but comforting.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-24T00:00:00",
+    "text": "Evening walk. The sunsets in July are something else. Gold and pink everywhere.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-25T00:00:00",
+    "text": "First yoga class with Maria. She told me to stop clenching my jaw. I didn't realize I was doing it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-26T00:00:00",
+    "text": "Saturday morning at the farmers market. Bought tomatoes, basil, and a weird squash. Yuki was there too.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-27T00:00:00",
+    "text": "Cooked for myself on a Wednesday. Usually I just toast something. Felt like I was taking care of myself properly.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-28T00:00:00",
+    "text": "Max texted about visiting next month. I said yes immediately. I miss that idiot.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-29T00:00:00",
+    "text": "Tom changed the project scope again. Third time this month. I'm learning to hold my plans loosely.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-30T00:00:00",
+    "text": "Evening walk. The neighborhood cats are out. One followed me for a block. I named her Maple.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-07-31T00:00:00",
+    "text": "End of the first month in the new place. I think this is going to be good. I think I'm going to be okay here.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-01T00:00:00",
+    "text": "August. The garden plot needs weeding already. Yuki is very serious about her tomatoes.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-02T00:00:00",
+    "text": "Morning coffee on the porch. A butterfly landed on the railing. I watched it for five minutes.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-03T00:00:00",
+    "text": "Morning coffee ritual is becoming real. Same corner of the porch, same mug, same ten minutes before the world starts.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-04T00:00:00",
+    "text": "Walked to the library. Found a book on photography composition. Took it home without hesitation.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-05T00:00:00",
+    "text": "Started sketching ideas for the photography portfolio. Just notes on my phone so far, but it feels like something.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-06T00:00:00",
+    "text": "Yoga. Maria noticed I'm breathing deeper. I didn't notice until she said it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-07T00:00:00",
+    "text": "Tom put me on a new project at work. It's fine. I just wish he'd asked instead of assigning.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-08T00:00:00",
+    "text": "Friday movie night. Watched a documentary about street photography. Got ideas for my own work.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-09T00:00:00",
+    "text": "Sarah and I went to the old bookstore on Third. I bought three books I don't need. She bought five.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-10T00:00:00",
+    "text": "Rain sounds all night. Left the window cracked. Woke up feeling rested for the first time in weeks.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-11T00:00:00",
+    "text": "Evening walk. The sunsets this month are ridiculous. Orange and purple like someone spilled paint.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-12T00:00:00",
+    "text": "Work was slow. Used the quiet time to organize my notes. Productive in a different way.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-13T00:00:00",
+    "text": "Mom called. She asked if I'm eating enough vegetables. I am. She worries anyway.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-14T00:00:00",
+    "text": "Yuki gave me a tomato from her garden. It was the best tomato I've ever had. She was smug about it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-15T00:00:00",
+    "text": "Friday movie night. Watched an old Hitchcock film alone on the couch with dark chocolate. Perfect.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-16T00:00:00",
+    "text": "Saturday morning at the farmers market. Bought peaches and honey. Summer tastes good.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-17T00:00:00",
+    "text": "The community garden is producing. Got my first basil leaves. Tiny but they smell incredible.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-18T00:00:00",
+    "text": "Evening walk. The fireflies are out. I stopped and watched them blink in the dark.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-19T00:00:00",
+    "text": "Had a weirdly good day at work. Raj and I figured out a problem together and it just clicked.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-20T00:00:00",
+    "text": "Morning coffee. The basil from the garden in my coffee would be weird. But the smell is incredible.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-21T00:00:00",
+    "text": "Took photos around the neighborhood for the portfolio. The light on the old brick buildings was exactly right.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-22T00:00:00",
+    "text": "Thursday chess with Daniel. He's getting better at openings. So am I.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-23T00:00:00",
+    "text": "Grandma called. She told me about the roses she's growing. I love listening to her talk about flowers.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-24T00:00:00",
+    "text": "Sunday cooking. Made a big salad with garden herbs. Simple but satisfying.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-25T00:00:00",
+    "text": "Rain all day. I opened the window just to listen to it. I love rain sounds more than I should probably admit.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-26T00:00:00",
+    "text": "Work was intense. Tom is counting on me for the September deliverable. I'm counting on coffee.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-27T00:00:00",
+    "text": "Sunday cooking. Made Dad's chili recipe. It's not as good as his but it's getting closer.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-28T00:00:00",
+    "text": "Yoga. Maria taught a new pose. My balance is improving. Small things add up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-29T00:00:00",
+    "text": "Jake texted. He's getting married next spring. I'm happy for him. I'm also a little jealous.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-30T00:00:00",
+    "text": "Walked to the park with my camera. The late summer light is golden and forgiving.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-08-31T00:00:00",
+    "text": "End of August. The apartment finally feels like mine. The books are on shelves, the plants are alive, the light is right.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-01T00:00:00",
+    "text": "Labor Day. No labor. Read on the porch with coffee. Sarah dropped off scones.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-02T00:00:00",
+    "text": "Back to work after a long weekend. The inbox was brutal. Tom's already stressed.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-03T00:00:00",
+    "text": "Work is picking up. Tom is stressed and it's radiating through the whole team. I can feel my jaw clenching again.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-04T00:00:00",
+    "text": "Evening walk. The light is changing. September has a different quality than August.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-05T00:00:00",
+    "text": "Thursday chess with Daniel. He beat me three times. I need to stop opening with the same moves.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-06T00:00:00",
+    "text": "Saturday at the farmers market. The tomatoes are at their peak. Bought too many.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-07T00:00:00",
+    "text": "Yuki's tomato plants are enormous. Mine are... adequate. She gave me some of hers. I pretended to be offended.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-08T00:00:00",
+    "text": "Morning coffee. The air is cooler. September mornings have a bite that August didn't.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-09T00:00:00",
+    "text": "Late at the office. Skipped yoga. Maria texted to check in. I said I'd be back next week.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-10T00:00:00",
+    "text": "Rain. The kind that signals the end of summer. I sat by the window and listened.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-11T00:00:00",
+    "text": "Morning coffee on the porch was cold today. I forgot about it while reading. Still nice, just different.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-12T00:00:00",
+    "text": "Work dinner with the team. I almost said no but went anyway. It was fine. Raj made it bearable.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-13T00:00:00",
+    "text": "Dad's birthday. Called him. He said he's proud of the garden. He meant the community garden, not the apartment. That's Dad.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-14T00:00:00",
+    "text": "Sunday cooking. Made a big batch of soup. The kitchen is small but everything works.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-15T00:00:00",
+    "text": "The photography portfolio is growing. Twelve shots I'm actually proud of. Maybe fifteen if I'm generous.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-16T00:00:00",
+    "text": "Yoga. Maria focused on grounding. I felt rooted for the first time in weeks.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-17T00:00:00",
+    "text": "Work dinner with the team. I almost said no but went anyway. It was fine. Raj made it bearable.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-18T00:00:00",
+    "text": "Evening walk. The leaves are just starting to turn. September light is the best light.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-19T00:00:00",
+    "text": "Rain again. I sat by the open window for an hour just listening. This is the thing I'll miss most about this apartment.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-20T00:00:00",
+    "text": "Saturday. Cleaned the apartment. Put on music. Made it a thing instead of a chore.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-21T00:00:00",
+    "text": "Sunday cooking. Tried a new recipe from the cookbook Katie sent. It was complicated but the result was worth it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-22T00:00:00",
+    "text": "Fall equinox. The seasons are turning. I can feel it in the air and in my bones.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-23T00:00:00",
+    "text": "Tom asked me to work Saturday. I said no. It was the hardest no I've said in a while.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-24T00:00:00",
+    "text": "Called Katie. She's doing well in Portland. We talked about photography. She has an eye I don't have.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-25T00:00:00",
+    "text": "Evening walk. The leaves are just starting to turn. September light is the best light.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-26T00:00:00",
+    "text": "Thursday chess. Daniel and I are evenly matched now. He's not happy about it. I am.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-27T00:00:00",
+    "text": "Volunteer tutoring session. The kid I'm paired with, Marcus, read a whole page without stopping today. That felt huge.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-28T00:00:00",
+    "text": "Rain sounds. I left the window cracked and fell asleep to the rhythm of it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-29T00:00:00",
+    "text": "Max is coming next weekend. I need to clear the guest room. It's become a photography storage room.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-09-30T00:00:00",
+    "text": "End of September. The busy season at work is ahead. I'm bracing for it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-01T00:00:00",
+    "text": "October. My favorite month. The air is cooler and everything feels more intentional.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-02T00:00:00",
+    "text": "Morning coffee. The porch is cold but the warmth of the mug compensates.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-03T00:00:00",
+    "text": "Max arrived. We hugged at the door. He brought hot sauce from the farmer's market near his place.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-04T00:00:00",
+    "text": "Showed Max the garden. He was impressed by Yuki's tomatoes and politely neutral about my herbs. Fair.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-05T00:00:00",
+    "text": "Cooked a big Sunday dinner with Max. He told me about his job, his roommate situation. I listened more than I talked.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-06T00:00:00",
+    "text": "Max left. The apartment feels quieter again. I forgot how much I like having someone around.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-07T00:00:00",
+    "text": "Back to work. The quiet after Max left makes the work feel louder.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-08T00:00:00",
+    "text": "Thursday chess with Daniel. I finally won one. He accused me of studying. I didn't, but I won't correct him.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-09T00:00:00",
+    "text": "Yoga. Maria said my posture is changing. I stand taller now. I didn't notice.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-10T00:00:00",
+    "text": "Morning coffee was perfect today. The temperature, the light, the silence. Some days everything just aligns.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-11T00:00:00",
+    "text": "Walked to the park with my camera. The autumn colors are starting. Red and gold everywhere.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-12T00:00:00",
+    "text": "Work deadline tomorrow. Stayed late but left at 7. Not 9. Progress.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-13T00:00:00",
+    "text": "Rain. I sat by the window and watched the leaves fall. There's something honest about autumn rain.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-14T00:00:00",
+    "text": "Yuki brought over soup from her garden tomatoes. We sat on the porch and talked about nothing important.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-15T00:00:00",
+    "text": "Evening walk. The streetlights are coming on earlier now. The neighborhood feels cozier in the dark.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-16T00:00:00",
+    "text": "The photography portfolio hit twenty shots. I'm starting to think about a website.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-17T00:00:00",
+    "text": "Thursday chess. Daniel brought a new opening. I lost, but I learned something.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-18T00:00:00",
+    "text": "Sarah and I went camping. First time in months. The fire, the stars, the quiet. I needed this more than I knew.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-19T00:00:00",
+    "text": "Camping day two. Made coffee on the old stove. Sarah laughed at how seriously I take the process.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-20T00:00:00",
+    "text": "Back from camping. Everything feels a little lighter. The apartment, the work, the head.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-21T00:00:00",
+    "text": "Morning coffee. The camping residue is still with me. I feel reset.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-22T00:00:00",
+    "text": "Work was productive. The break helped. I came back with fresh eyes.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-23T00:00:00",
+    "text": "Tom praised the project in front of the team. I said thank you and didn't downplay it. Growth.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-24T00:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-25T00:00:00",
+    "text": "Friday movie night. Rain sounds on the window. Dark chocolate. A film about a lighthouse keeper. Perfect.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-26T00:00:00",
+    "text": "Sunday cooking. Made a big pot of chili. The apartment smells like Dad's kitchen.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-27T00:00:00",
+    "text": "Marcus at the tutoring session read two pages today. I almost cried. I didn't. But close.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-28T00:00:00",
+    "text": "Yoga. Maria taught a breathing technique. I used it during a stressful work call. It worked.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-29T00:00:00",
+    "text": "Grandma sent a package. A scarf she knitted and a note that said 'Stay warm, stay kind.' I'm keeping the note.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-30T00:00:00",
+    "text": "Evening walk. The jack-o-lanterns are out. The neighborhood looks friendly and weird.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-10-31T00:00:00",
+    "text": "Halloween. Yuki and I handed out candy on the porch. One kid said my costume was 'vintage.' I was just wearing a sweater.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-01T00:00:00",
+    "text": "November. The trees are almost bare. There's something honest about a tree with no leaves.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-02T00:00:00",
+    "text": "Morning coffee. The porch is cold now. I bundle up and drink faster.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-02T23:00:00",
+    "text": "Work is intense. Tom is counting on me for the November deliverable. I'm counting on coffee.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-03T23:00:00",
+    "text": "Evening walk. The bare trees let more light through. The neighborhood looks different without leaves.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-04T23:00:00",
+    "text": "Yoga with Maria. She focused on breathing today. I realized I hold my breath when I'm stressed.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-05T23:00:00",
+    "text": "Rain. Cold rain. I stayed inside and read. The window was fogged up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-06T23:00:00",
+    "text": "Called Katie. She's doing well in Portland. We talked about photography. She has an eye I don't have.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-07T23:00:00",
+    "text": "Saturday at the farmers market. The last of the season. Bought root vegetables and apples.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-08T23:00:00",
+    "text": "Sunday cooking. Made a double batch of soup and froze half. Future me will be grateful.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-09T23:00:00",
+    "text": "Work was slow. Used the quiet time to organize my notes. Productive in a different way.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-10T23:00:00",
+    "text": "Veterans Day. Uncle Pete called. We talked for an hour. He's doing better since the surgery.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-11T23:00:00",
+    "text": "Evening walk. The cold air is sharp and good. I've been walking every day this month. It's become non-negotiable.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-12T23:00:00",
+    "text": "Raj and I finished the project ahead of schedule. Tom was genuinely surprised. We celebrated with gas station coffee.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-13T23:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-14T23:00:00",
+    "text": "Evening walk. The cold air is sharp and good. I've been walking every day this month. It's become non-negotiable.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-15T23:00:00",
+    "text": "Sunday cooking. Made a big pot of soup. The kitchen is small but everything works.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-16T23:00:00",
+    "text": "Mom texted about Thanksgiving plans. I said I'd bring the pie. She said bring two. She knows my pie is good.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-17T23:00:00",
+    "text": "Yoga. Maria said my shoulders are dropping. I carry less tension now.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-18T23:00:00",
+    "text": "The photography website is halfway done. Daniel helped me with the CSS. I'm terrible at CSS.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-19T23:00:00",
+    "text": "Evening walk. The neighborhood lights are starting to go up. Early decorations.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-20T23:00:00",
+    "text": "Morning coffee. The frost on the porch rail looked like lace. Took a photo. It might be my best one.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-21T23:00:00",
+    "text": "Saturday. Cleaned the apartment. Put on music. Made it a thing instead of a chore.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-22T23:00:00",
+    "text": "Planned the garden for next year with Yuki. We're adding sunflowers. She's very excited about sunflowers.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-23T23:00:00",
+    "text": "Work was steady. The November deliverable is done. I'm proud of how I handled the pressure.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-24T23:00:00",
+    "text": "Finished the November deliverable at work. Submitted it at 4pm on a Tuesday. I'm getting better at boundaries.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-25T23:00:00",
+    "text": "Rain. Cold rain. I stayed inside and read. The window was fogged up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-26T23:00:00",
+    "text": "Thanksgiving at Mom and Dad's. The whole family. Max, Jake, Grandma. The pie was a hit. Both pies.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-27T23:00:00",
+    "text": "Black Friday. Didn't buy anything. Walked to the bookstore instead. Bought one book. That counts as restraint.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-28T23:00:00",
+    "text": "Evening walk. The neighborhood lights are up. Some houses go all out. Mine has one strand. That feels right.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-29T23:00:00",
+    "text": "End of November. I'm grateful for the quiet. For the garden. For Sarah and Max and Mom. For the morning coffee.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-11-30T23:00:00",
+    "text": "December. The apartment is cold in the mornings. I need to figure out the heating situation.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-01T23:00:00",
+    "text": "Morning coffee. The cold makes the mug feel warmer. Small comforts.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-02T23:00:00",
+    "text": "Put up a few lights. Nothing fancy. Just the window. It makes the whole room feel warmer.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-03T23:00:00",
+    "text": "Work was productive. The year is winding down but the deadlines aren't.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-04T23:00:00",
+    "text": "Sarah and I went to the holiday market. She bought ornaments. I bought dark chocolate and a candle.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-05T23:00:00",
+    "text": "Rain. Cold rain. I stayed inside and read. The window was fogged up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-06T23:00:00",
+    "text": "Sunday cooking. Made gingerbread. The apartment smells like cloves and memory.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-07T23:00:00",
+    "text": "Yoga. Maria said my breathing is different now. Deeper. Slower. I feel it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-08T23:00:00",
+    "text": "Work holiday party. I went for one hour. That was enough. Raj left at the same time.默契.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-09T23:00:00",
+    "text": "Evening walk. The neighborhood lights are up. Some houses go all out. Mine has one strand. That feels right.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-10T23:00:00",
+    "text": "Evening walk. The neighborhood lights are up. Some houses go all out. Mine has one strand. That feels right.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-11T23:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-12T23:00:00",
+    "text": "Called Mom. She's stressed about Christmas dinner. I told her I'd come early to help. She sounded relieved.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-13T23:00:00",
+    "text": "Sunday cooking. Made a big pot of soup. The kitchen is small but everything works.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-14T23:00:00",
+    "text": "Marcus read three pages at tutoring today. His mom sent a thank-you email. I read it three times.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-15T23:00:00",
+    "text": "Evening walk. The cold air is sharp and good. I've been walking every day this month. It's become non-negotiable.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-16T23:00:00",
+    "text": "Rain and cold. Sat by the window with coffee and listened. There's something about rain in December that feels honest.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-17T23:00:00",
+    "text": "Work was steady. The year is almost done. I'm ready for the break.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-18T23:00:00",
+    "text": "Finished the photography website. It's simple but it's mine. Sent the link to Katie. She said it was beautiful.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-19T23:00:00",
+    "text": "Saturday. Cleaned the apartment. Put on music. Made it a thing instead of a chore.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-20T23:00:00",
+    "text": "Winter solstice. The shortest day. I walked in the dark and watched the streetlights come on one by one.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-21T23:00:00",
+    "text": "Evening walk. The neighborhood lights are up. Some houses go all out. Mine has one strand. That feels right.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-22T23:00:00",
+    "text": "Drove to Mom and Dad's. The drive was quiet. I like the quiet drives. Just me and the road and the radio.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-23T23:00:00",
+    "text": "Christmas Eve. Mom's kitchen. The smell of cinnamon. Max telling bad jokes. This is what matters.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-24T23:00:00",
+    "text": "Christmas. Dad's chili. Mom's pie. Max's terrible jokes. Grandma's scarf around my neck. This is what matters.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-25T23:00:00",
+    "text": "The quiet after Christmas. Everyone's napping. I'm sitting in Dad's garden chair looking at the dormant beds.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-26T23:00:00",
+    "text": "Rain. Cold rain. I stayed inside and read. The window was fogged up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-27T23:00:00",
+    "text": "Back home. The apartment is cold but familiar. Yuki left a note: 'Your basil is fine. I watered it.'",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-28T23:00:00",
+    "text": "Evening walk. The neighborhood lights are starting to come down. The holidays are fading.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-29T23:00:00",
+    "text": "End of the year. I'm tired but not the bad kind of tired. The kind that means you lived a full year.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-30T23:00:00",
+    "text": "New Year's Eve. Sarah came over. We watched the ball drop on my laptop because I don't have a TV. She said this is the year everything changes. I believe her.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2025-12-31T23:00:00",
+    "text": "New Year's Day. Coffee on the porch. Frost on everything. One resolution: be less afraid of good things.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-01T23:00:00",
+    "text": "Morning coffee. The new year feels different. Not better, just different. Fresh.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-02T23:00:00",
+    "text": "Back to work. Tom has a whole new plan for Q1. I'm cautiously optimistic.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-03T23:00:00",
+    "text": "Rain. Cold rain. I stayed inside and read. The window was fogged up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-04T23:00:00",
+    "text": "Yoga with Maria. First class of the year. She said 'set an intention, not a resolution.' I liked that.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-05T23:00:00",
+    "text": "Evening walk. The neighborhood is quiet. Everyone is still in holiday mode.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-06T23:00:00",
+    "text": "Thursday chess with Daniel. He brought a new opening. I lost, but I learned something.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-07T23:00:00",
+    "text": "Work was productive. The new year energy is real.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-08T23:00:00",
+    "text": "Morning coffee. I've been journaling in my head for months. Maybe I should actually write things down.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-09T23:00:00",
+    "text": "Saturday at the farmers market. Winter market. Bought root vegetables and honey.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-10T23:00:00",
+    "text": "Sunday cooking. Made a new year soup. It's just regular soup but I called it new year soup.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-11T23:00:00",
+    "text": "Evening walk. The cold air is sharp and good. I've been walking every day this month. It's become non-negotiable.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-12T23:00:00",
+    "text": "Yuki and I planned the spring garden. She wants a pollinator section. I want more basil. We compromised.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-13T23:00:00",
+    "text": "Work was steady. The new plan is taking shape.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-14T23:00:00",
+    "text": "Work is steady. Not frantic, not boring. This might be the sweet spot.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-15T23:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-16T23:00:00",
+    "text": "Sarah and I had a long talk about what we want this year. She wants to travel. I want to build something.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-17T23:00:00",
+    "text": "Evening walk. The days are getting longer. You can feel it even though it's still dark at 5.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-18T23:00:00",
+    "text": "Evening walk. The days are getting longer. You can feel it even though it's still dark at 5.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-19T23:00:00",
+    "text": "Work was productive. The new year energy is real.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-20T23:00:00",
+    "text": "Marcus finished his first chapter book at tutoring. His teacher sent me a note. I'm keeping it next to Grandma's.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-21T23:00:00",
+    "text": "Rain. Cold rain. I stayed inside and read. The window was fogged up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-22T23:00:00",
+    "text": "Photography portfolio update. Thirty shots now. Some of the garden ones are really good.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-23T23:00:00",
+    "text": "Saturday. Cleaned the apartment. Put on music. Made it a thing instead of a chore.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-24T23:00:00",
+    "text": "Rain sounds all night. Left the window cracked. Woke up feeling rested for the first time in weeks.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-25T23:00:00",
+    "text": "Evening walk. The neighborhood is quiet. Everyone is still in holiday mode.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-26T23:00:00",
+    "text": "Called Max. He's thinking about getting a dog. I told him to get a medium one. He's not ready for a big one.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-27T23:00:00",
+    "text": "Yoga. Maria said my shoulders are dropping. I carry less tension now.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-28T23:00:00",
+    "text": "Mom texted a photo of Dad's garden beds covered in snow. He's already planning what to plant in spring.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-29T23:00:00",
+    "text": "Evening walk. The cold air is sharp and good. I've been walking every day this month. It's become non-negotiable.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-30T23:00:00",
+    "text": "End of January. The year is new and full of possibility. I can feel it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-01-31T23:00:00",
+    "text": "February. The longest month. Not because of the days — because of the waiting.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-01T23:00:00",
+    "text": "Morning coffee. The porch is cold but the warmth of the mug compensates.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-02T23:00:00",
+    "text": "Work was draining. Tom changed the plan again. Third time this quarter. I'm learning to hold my plans loosely.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-03T23:00:00",
+    "text": "Rain. Cold rain. I stayed inside and read. The window was fogged up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-04T23:00:00",
+    "text": "Sarah came over with dark chocolate and a movie. We watched something forgettable and it was perfect.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-05T23:00:00",
+    "text": "Evening walk. The cold air is sharp and good. I've been walking every day this month. It's become non-negotiable.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-06T23:00:00",
+    "text": "Morning coffee. The porch was too cold so I sat inside by the window. Different spot, same ritual.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-07T23:00:00",
+    "text": "Saturday. Cleaned the apartment. Put on music. Made it a thing instead of a chore.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-08T23:00:00",
+    "text": "Yoga. Maria said 'you're holding less tension in your jaw.' I didn't even know she noticed.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-09T23:00:00",
+    "text": "Work was productive. The new year energy is real.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-10T23:00:00",
+    "text": "Thursday chess. Daniel and I are evenly matched now. He's not happy about it. I am.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-11T23:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-12T23:00:00",
+    "text": "Valentine's Day eve. Went to the bookstore alone. Bought a book about color theory for the photography work.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-13T23:00:00",
+    "text": "Valentine's Day. Sarah and I had dinner at the Thai place. Neither of us is seeing anyone. We're each other's valentine.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-14T23:00:00",
+    "text": "Evening walk. The neighborhood is quiet. Everyone is still in winter mode.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-15T23:00:00",
+    "text": "The garden is dormant but I went anyway. Yuki was there, pruning something. She says February pruning matters.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-16T23:00:00",
+    "text": "Work was steady. The new plan is taking shape.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-17T23:00:00",
+    "text": "Had an idea for a project. Something that helps people journal with memory. Like a private diary that remembers.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-18T23:00:00",
+    "text": "Rain. Cold rain. I stayed inside and read. The window was fogged up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-19T23:00:00",
+    "text": "Can't stop thinking about the journal idea. Started sketching it on paper. Old school.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-20T23:00:00",
+    "text": "Evening walk. The cold air is sharp and good. I've been walking every day this month. It's become non-negotiable.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-21T23:00:00",
+    "text": "Sunday cooking. Made a big stew. Gave a portion to Yuki. She gave me tomatoes from her winter stash.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-22T23:00:00",
+    "text": "Work was productive. The new year energy is real.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-23T23:00:00",
+    "text": "Talked to Raj about the journal idea. He said it sounds like a hackathon project. He's right.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-24T23:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-25T23:00:00",
+    "text": "Rain. Sat by the window and sketched the app design. Three screens: write, remember, ask.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-26T23:00:00",
+    "text": "Evening walk. The days are getting longer. You can feel it even though it's still dark at 5.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-27T23:00:00",
+    "text": "End of February. The journal idea won't leave me alone. I think that means something.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-02-28T23:00:00",
+    "text": "March. You can smell the thaw. The garden beds are waking up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-01T23:00:00",
+    "text": "Morning coffee. The porch is usable again. First outdoor coffee since November. It tasted different. Better.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-02T23:00:00",
+    "text": "Started coding the journal app. Just the database and a basic entry form. But it felt real.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-03T23:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-04T23:00:00",
+    "text": "Yuki started her seedlings indoors. I started mine too. We're competing. Friendly competition.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-05T23:00:00",
+    "text": "Evening walk. The trees have buds. Tiny green promises everywhere.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-06T23:00:00",
+    "text": "Thursday chess. Daniel asked about the project. I explained it. He said 'that's actually cool.' That's high praise from Daniel.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-07T23:00:00",
+    "text": "Saturday. Cleaned the apartment. Put on music. Made it a thing instead of a chore.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-09T00:00:00",
+    "text": "Morning coffee. The porch is usable again. First outdoor coffee since November. It tasted different. Better.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-10T00:00:00",
+    "text": "Work was productive. The new year energy is real.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-11T00:00:00",
+    "text": "Work project is wrapping up. Tom seems satisfied. I'm satisfied with being satisfied.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-12T00:00:00",
+    "text": "Rain. Cold rain. I stayed inside and read. The window was fogged up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-13T00:00:00",
+    "text": "The journal app has a reflection feature now. The AI reads your entry and gives a warm response. Tested it on my own entry.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-14T00:00:00",
+    "text": "Evening walk. The neighborhood is waking up. People are outside again.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-15T00:00:00",
+    "text": "Sunday cooking. Made Dad's chili recipe again. This time it was almost as good as his. Almost.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-16T00:00:00",
+    "text": "Work was steady. The new plan is taking shape.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-17T00:00:00",
+    "text": "Sarah asked about the project. I showed her the prototype. She said 'this feels personal.' That's the point.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-18T00:00:00",
+    "text": "Evening walk. The trees have buds. Tiny green promises everywhere.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-19T00:00:00",
+    "text": "Evening walk. The trees have buds. Tiny green promises everywhere.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-20T00:00:00",
+    "text": "Spring equinox. Planted the first herbs in the garden. Yuki's sunflower seeds are already sprouting.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-21T00:00:00",
+    "text": "Spring equinox. Planted the first herbs in the garden. Yuki's sunflower seeds are already sprouting.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-22T00:00:00",
+    "text": "Work was productive. The new year energy is real.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-23T00:00:00",
+    "text": "Marcus at tutoring read a whole chapter without stopping. His mom cried. I almost did too.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-24T00:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-25T00:00:00",
+    "text": "The journal app can remember things now. I wrote about coffee and it recalled a past entry about the porch. Magic.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-26T00:00:00",
+    "text": "Evening walk. The neighborhood is waking up. People are outside again.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-27T00:00:00",
+    "text": "Raj came over to test the app. He wrote about his cat. The reflection was warm and specific. He looked surprised.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-28T00:00:00",
+    "text": "Saturday. Cleaned the apartment. Put on music. Made it a thing instead of a chore.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-29T00:00:00",
+    "text": "Rain on the window. The app works. The herbs are growing. Sarah texted 'proud of you.' Good day.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-30T00:00:00",
+    "text": "Evening walk. The neighborhood is waking up. People are outside again.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-03-31T00:00:00",
+    "text": "End of March. Spring is here. The project is real. I feel like I'm building something that matters.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-01T00:00:00",
+    "text": "April. The garden is exploding. Yuki's sunflowers are already a foot tall.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-02T00:00:00",
+    "text": "Morning coffee. The herbs are doing well. The mint is aggressive. I respect that.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-03T00:00:00",
+    "text": "Added the Remember panel to the app. It shows the people, projects, and themes it's noticed. It saw Sarah before I told it about Sarah.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-04T00:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-05T00:00:00",
+    "text": "Morning coffee on the porch. The herbs are doing well. The mint is aggressive. I respect that.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-06T00:00:00",
+    "text": "Evening walk. The neighborhood is blooming. Every yard has something different growing.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-07T00:00:00",
+    "text": "Called Mom. Told her about the project. She said 'so it's like a diary that talks back?' Close enough, Mom.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-08T00:00:00",
+    "text": "Work was productive. The new year energy is real.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-09T00:00:00",
+    "text": "Thursday chess. Daniel beat me. He said 'you're distracted by your project.' He's right and I'm not sorry.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-10T00:00:00",
+    "text": "Evening walk. The neighborhood is blooming. Every yard has something different growing.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-11T00:00:00",
+    "text": "Tested the app's memory with twenty entries. It recalled the camping trip when I wrote about fire. I got chills.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-12T00:00:00",
+    "text": "Saturday. Cleaned the apartment. Put on music. Made it a thing instead of a chore.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-13T00:00:00",
+    "text": "Sunday cooking. Made soup from the garden herbs. The basil was incredible. Yuki was right about basil.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-14T00:00:00",
+    "text": "Work was steady. The new plan is taking shape.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-15T00:00:00",
+    "text": "Tom noticed I seem happier. I didn't tell him why. Some things are just yours.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-16T00:00:00",
+    "text": "Rain. Cold rain. I stayed inside and read. The window was fogged up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-17T00:00:00",
+    "text": "Yoga. Maria asked what changed. I said I started journaling. She said 'the writing shows in your body.'",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-18T00:00:00",
+    "text": "Evening walk. The neighborhood is blooming. Every yard has something different growing.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-19T00:00:00",
+    "text": "Evening walk. The neighborhood is blooming. Every yard has something different growing.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-20T00:00:00",
+    "text": "Work was productive. The new year energy is real.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-21T00:00:00",
+    "text": "Sarah tested the app. She wrote about her sister. The reflection was so specific she screenshot it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-22T00:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-23T00:00:00",
+    "text": "Added source receipts to the app. When it recalls a past entry, it shows the exact date and snippet. Proof of memory.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-24T00:00:00",
+    "text": "Evening walk. The neighborhood is blooming. Every yard has something different growing.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-25T00:00:00",
+    "text": "Rain. Perfect rain day. Worked on the app all afternoon. The Remember panel now groups by type: people, projects, themes.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-26T00:00:00",
+    "text": "Saturday. Cleaned the apartment. Put on music. Made it a thing instead of a chore.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-27T00:00:00",
+    "text": "Marcus finished his reading level assessment. Two grade levels up from where he started. I brought cupcakes to tutoring.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-28T00:00:00",
+    "text": "Evening walk. The neighborhood is blooming. Every yard has something different growing.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-29T00:00:00",
+    "text": "Grandma called. I told her about the project. She said 'I wish I'd had something like that when I was your age.'",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-04-30T00:00:00",
+    "text": "End of April. The app is getting good. The garden is getting tall. I feel like I'm growing alongside both of them.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-01T00:00:00",
+    "text": "May. The sunflowers are taller than Yuki. She's very proud.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-02T00:00:00",
+    "text": "Morning coffee. The mint has taken over one corner of the garden. I let it. Mint should be free.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-03T00:00:00",
+    "text": "Morning coffee. The mint has taken over one corner of the garden. I let it. Mint should be free.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-04T00:00:00",
+    "text": "Morning coffee ritual is becoming real. Same mug, same spot, same ten minutes.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-05T00:00:00",
+    "text": "Work deadline moved up. But this time I planned for it. Buffer time is a gift to your future self.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-06T00:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-07T00:00:00",
+    "text": "Thursday chess. Daniel asked to see the app code. He found a bug. Fixed it in two minutes. Good friend.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-08T00:00:00",
+    "text": "Evening walk. The neighborhood is blooming. Every yard has something different growing.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-09T00:00:00",
+    "text": "Raj and I had coffee. He asked about the hackathon timeline. I said three weeks. He said 'you're going to win.'",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-10T00:00:00",
+    "text": "Sarah texted about brunch. I said yes before I could overthink it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-11T00:00:00",
+    "text": "Yoga. Maria taught a new breathing technique. I used it during a stressful work call. It worked.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-12T00:00:00",
+    "text": "Work was productive. The new year energy is real.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-13T00:00:00",
+    "text": "Forgot my vitamins again. Third time this month. I keep meaning to make mornings simpler.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-14T00:00:00",
+    "text": "Rain. Cold rain. I stayed inside and read. The window was fogged up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-15T00:00:00",
+    "text": "Added the 'This Week' feature to the app. It looks at your recent entries and notices patterns. It noticed I write about coffee a lot.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-16T00:00:00",
+    "text": "Side project demo broke in front of two people. Embarrassing but fixable.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-17T00:00:00",
+    "text": "Evening walk. The jasmine is blooming. The whole street smells sweet.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-18T00:00:00",
+    "text": "Work was steady. The new plan is taking shape.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-19T00:00:00",
+    "text": "Marcus read his first chapter book cover to cover. His mom sent me a photo of him holding it up. I'm framing that.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-20T00:00:00",
+    "text": "Evening walk. The neighborhood is blooming. Every yard has something different growing.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-21T00:00:00",
+    "text": "Katie called from Portland. She wants to do the photography portfolio justice. She's flying out next month to help.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-22T00:00:00",
+    "text": "Went for a walk after work instead of collapsing on the couch. Small win.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-23T00:00:00",
+    "text": "The app's demo mode works. Seeded it with sample entries. Even I got a little emotional reading the reflections.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-24T00:00:00",
+    "text": "Saturday. Cleaned the apartment. Put on music. Made it a thing instead of a chore.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-25T00:00:00",
+    "text": "Yuki and I harvested the first herbs. Made pesto. She brought tomatoes. We ate on her porch.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-26T00:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-27T00:00:00",
+    "text": "Work is steady. The hackathon prep is intense. I'm sleeping less but it's the good kind of tired.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-28T00:00:00",
+    "text": "Late night coding. The side project is almost ready to show people.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-29T00:00:00",
+    "text": "Friday movie night. Watched a documentary about memory. Felt very on-brand for my current life.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-30T00:00:00",
+    "text": "Evening walk. The neighborhood is blooming. Every yard has something different growing.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-05-31T00:00:00",
+    "text": "End of May. The hackathon is two weeks away. The app is almost ready. I'm almost ready.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-01T00:00:00",
+    "text": "June. The hackathon is three weeks out. Time to polish everything.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-02T00:00:00",
+    "text": "Morning coffee. The sunflowers are fully bloomed. They're ridiculous and wonderful.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-03T00:00:00",
+    "text": "Morning coffee. The sunflowers are fully bloomed. They're ridiculous and wonderful.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-05T00:00:00",
+    "text": "Worked on the app UI all night. The theme is warm paper with terracotta accents. It feels like a real journal.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-06T00:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-07T00:00:00",
+    "text": "Mom called. She asked if the project is done. I said almost. She said 'you always say almost.'",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-08T00:00:00",
+    "text": "Evening walk. The neighborhood is blooming. Every yard has something different growing.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-09T00:00:00",
+    "text": "Thursday chess. Daniel and I played three games. Split 1-1 with one draw. Perfectly balanced.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-11T00:00:00",
+    "text": "Yoga. Maria said 'you breathe differently now.' I do. The app taught me to notice my breathing through my writing.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-12T00:00:00",
+    "text": "Work was productive. The new year energy is real.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-13T00:00:00",
+    "text": "Sarah tested the full flow: write, reflect, remember, recall. She said 'this is going to win.'",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-14T00:00:00",
+    "text": "Saturday. Cleaned the apartment. Put on music. Made it a thing instead of a chore.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-15T00:00:00",
+    "text": "Sunday cooking. Made the chili again. Dad's recipe. This time it was perfect. Sent him a photo.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-17T00:00:00",
+    "text": "Marcus's last tutoring session of the school year. He gave me a drawing of a book with wings. It's on my fridge.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-18T00:00:00",
+    "text": "Rain. Cold rain. I stayed inside and read. The window was fogged up.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-19T00:00:00",
+    "text": "Evening walk. The light at 8pm is golden. Everything looks like a photograph.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-20T00:00:00",
+    "text": "Work was steady. The new plan is taking shape.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-21T00:00:00",
+    "text": "Summer solstice. Longest day. Spent it in the garden and at the computer. Both felt right.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-22T00:00:00",
+    "text": "Evening walk. The neighborhood is blooming. Every yard has something different growing.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-23T00:00:00",
+    "text": "Final polish on the app. Tested the demo mode with all entries. The memory recall is spooky good.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-24T00:00:00",
+    "text": "Rain. The kind that makes you want to stay inside and read. I did.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-25T00:00:00",
+    "text": "Katie arrived. We spent the day reviewing the photography portfolio. She has an incredible eye.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-26T00:00:00",
+    "text": "Evening walk. The light at 8pm is golden. Everything looks like a photograph.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-27T00:00:00",
+    "text": "Hackathon submission day. Uploaded the app. My hands were shaking. Sarah was on speaker. She talked me through it.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-28T00:00:00",
+    "text": "It's submitted. Whatever happens, I made this. Something that remembers what matters and reflects it back.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-29T00:00:00",
+    "text": "Morning coffee on the porch. Sunflowers in the garden. Herbs on the windowsill. App on the server. I'm okay.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-30T00:00:00",
+    "text": "End of June. End of the first year of the rest of my life. The journal remembers everything. I'm glad it does.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-04T21:44:16.077931",
+    "text": "Slammed all week. Barely sat down. I miss having time that's just mine.",
+    "reflection": "You're really busy and feeling like you need time just for yourself.",
+    "question": "What might help make those quiet moments feel more special to you?"
+  },
+  {
+    "created_at": "2026-06-01T00:00:00",
+    "text": "June. The hackathon submission is this week. Time to polish everything.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-05T00:00:00",
+    "text": "Final polish on the app. Katie arrived to help review the photography portfolio. She has an incredible eye.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-06T00:00:00",
+    "text": "Hackathon submission day. Uploaded the app. My hands were shaking. Sarah was on speaker. Whatever happens, I made this. The journal remembers everything. I'm glad it does.",
+    "reflection": "",
+    "question": ""
+  },
+  {
+    "created_at": "2026-06-05T21:40:45.940326",
+    "text": "what did I do on this day 2 months ago?",
+    "reflection": "Based on your journal entries from December and January this year:\n- What was going through your mind when you had those productive days at work?\n- How do these moments of productivity make you feel now?",
+    "question": ""
+  }
+]
