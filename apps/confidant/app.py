@@ -18,6 +18,7 @@ from __future__ import annotations
 import html
 import inspect
 import os
+import re
 import sys
 import time
 from datetime import date
@@ -111,6 +112,34 @@ def _timeline_html() -> str:
         block.append("</div>")
         blocks.append("\n".join(block))
     return "\n".join(blocks)
+
+
+def _strip_thinking(text: str) -> str:
+    """Strip various thinking/reasoning tags from model output."""
+    text = re.sub(r"<think>.*?</think>", "", text or "", flags=re.DOTALL)
+    text = re.sub(r"<\|reasoning\|>.*?<\|/reasoning\|>", "", text, flags=re.DOTALL)
+    text = re.sub(r"<\|begin_of_thought\|>.*?<\|end_of_thought\|>", "", text, flags=re.DOTALL)
+    return text.strip()
+
+
+def _format_chat(history: list[dict]) -> str:
+    """Render chat history as styled HTML bubbles."""
+    parts = ['<div class="chat-history">']
+    for msg in history:
+        role = msg.get("role", "")
+        content = html.escape(msg.get("content", ""))
+        if msg.get("loading"):
+            parts.append(f'<div class="chat-thinking">{content}</div>')
+        else:
+            label = "You" if role == "user" else "Companion"
+            parts.append(
+                f'<div class="chat-msg chat-{role}">'
+                f'<div><div class="chat-label">{label}</div>'
+                f'<div class="chat-bubble">{content}</div></div>'
+                f"</div>"
+            )
+    parts.append("</div>")
+    return "\n".join(parts)
 
 
 # --------------------------------------------------------------------------- #
@@ -301,6 +330,111 @@ def build() -> gr.Blocks:
                 submitted_entry = gr.HTML(value="")
                 week_panel = gr.HTML(value="")
                 timeline = gr.HTML(value=_timeline_html())
+            
+            # Chat tab - talk to your journal companion
+            with gr.Tab("Chat"):
+                gr.Markdown("## 💬 Chat with your Companion")
+                gr.Markdown("Ask questions, get ideas, or just talk. Your companion knows your journal.")
+                
+                chat_history = gr.State([])
+                chat_display = gr.Markdown(value="*Start a conversation. Your companion knows your journal entries and can help you think through things.*")
+                
+                with gr.Row():
+                    chat_input = gr.Textbox(
+                    lines=4,
+                        placeholder="Ask your companion anything...",
+                        show_label=False,
+                        scale=4,
+                    )
+                    chat_send = gr.Button("Send", elem_classes=["pc-primary"])
+                
+                def on_chat_start(message, history):
+                    """Immediately add user message + loading indicator to history."""
+                    if not message or not message.strip():
+                        return history, _format_chat(history), ""
+                    new_history = history + [
+                        {"role": "user", "content": message.strip()},
+                        {"role": "assistant", "content": "⏳ Companion is thinking...", "loading": True},
+                    ]
+                    return new_history, _format_chat(new_history), ""
+
+                def on_chat_finish(message, history, model):
+                    """Replace loading indicator with actual model response."""
+                    if not message or not message.strip():
+                        return history, _format_chat(history)
+                    history = history[:-1]
+                    used_model = model or DEFAULT_MODEL
+
+                    try:
+                        results = STORE.search(message, limit=5)
+                        context = "\n".join(
+                            [f"- ({e.when}) {e.text[:200]}" for e in results[:3]]
+                        )
+                    except Exception:
+                        context = ""
+
+                    system = (
+                        "You are a warm, supportive journaling companion. "
+                        "You know the user's journal entries and can reference them naturally. "
+                        "Be helpful, give ideas when asked, but stay within bounds: "
+                        "no medical, legal, or financial advice. "
+                        "Keep responses concise (2-3 sentences). "
+                        "Reference their journal when relevant."
+                    )
+
+                    user_msg = f"Journal context:\n{context}\n\nUser says: {message}"
+
+                    try:
+                        import requests
+                        resp = requests.post(
+                            "http://localhost:11434/api/chat",
+                            json={
+                                "model": used_model,
+                                "messages": [
+                                    {"role": "system", "content": system},
+                                    {"role": "user", "content": user_msg},
+                                ],
+                                "stream": False,
+                            },
+                            timeout=60,
+                        )
+                        resp.raise_for_status()
+                        raw = resp.json()["message"]["content"]
+                        ai_response = _strip_thinking(raw)
+                    except requests.Timeout:
+                        ai_response = (
+                            "The model took too long to respond. "
+                            "Try a shorter message or a different model."
+                        )
+                    except Exception as exc:
+                        ai_response = (
+                            "I couldn't reach the local model right now. "
+                            "Make sure Ollama is running and try again."
+                        )
+
+                    history = history + [
+                        {"role": "assistant", "content": ai_response}
+                    ]
+                    return history, _format_chat(history)
+
+                chat_send.click(
+                    on_chat_start,
+                    inputs=[chat_input, chat_history],
+                    outputs=[chat_history, chat_display, chat_input],
+                ).then(
+                    on_chat_finish,
+                    inputs=[chat_input, chat_history, model],
+                    outputs=[chat_history, chat_display],
+                )
+                chat_input.submit(
+                    on_chat_start,
+                    inputs=[chat_input, chat_history],
+                    outputs=[chat_history, chat_display, chat_input],
+                ).then(
+                    on_chat_finish,
+                    inputs=[chat_input, chat_history, model],
+                    outputs=[chat_history, chat_display],
+                )
 
                 submit.click(
                     on_submit,
