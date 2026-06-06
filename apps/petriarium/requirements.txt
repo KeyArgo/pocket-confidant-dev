@@ -1,0 +1,10 @@
+# Petriarium - local Gradio app dependencies
+gradio>=6.0,<7
+requests>=2.31,<3
+
+# The creature can run on a local GGUF model in the Space/runtime path.
+llama-cpp-python>=0.3.2,<0.4
+huggingface_hub>=0.24,<1
+
+# Optional but commonly present transitively; pin loosely so local installs stay stable.
+numpy>=1.26,<3

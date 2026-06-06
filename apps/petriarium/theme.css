@@ -1,0 +1,472 @@
+/* Petriarium - terrarium-forward Gradio skin. */
+
+:root {
+  --pet-paper: #f4f1e8;
+  --pet-card: #fffdf8;
+  --pet-ink: #24312f;
+  --pet-soft: #5b6864;
+  --pet-line: #d7d0c2;
+  --pet-clay: #b36e4a;
+  --pet-moss: #5e7f62;
+  --pet-fern: #7ea07c;
+  --pet-water: #5a7d9a;
+  --pet-gold: #c8a46f;
+  --pet-shadow: rgba(36, 49, 47, 0.08);
+}
+
+body,
+.gradio-container,
+.gradio-container .main {
+  background:
+    radial-gradient(circle at top left, rgba(126, 160, 124, 0.06), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(181, 110, 74, 0.05), transparent 32%),
+    var(--pet-paper) !important;
+  color: var(--pet-ink) !important;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+.gradio-container {
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+}
+
+.pet-hero {
+  padding: 24px 0 8px;
+}
+
+.pet-kicker {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.7rem;
+  color: var(--pet-moss);
+}
+
+.pet-hero h1 {
+  margin: 6px 0 8px;
+  font-size: clamp(2.1rem, 4vw, 3.4rem);
+  letter-spacing: 0;
+  line-height: 1.02;
+}
+
+.pet-hero p {
+  margin: 0 0 10px;
+  max-width: 760px;
+  color: var(--pet-soft);
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+.pet-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pet-badges span {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--pet-line);
+  background: rgba(255, 253, 248, 0.78);
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: var(--pet-soft);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.8rem;
+}
+
+.pet-panel {
+  background: var(--pet-card);
+  border: 1px solid var(--pet-line);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--pet-shadow);
+  padding: 14px;
+  margin: 0 0 14px;
+}
+
+.pet-panel-head {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  color: var(--pet-moss);
+  margin-bottom: 10px;
+}
+
+.pet-creature-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.pet-world-layer {
+  transform-origin: 210px 160px;
+}
+
+.pet-firefly {
+  animation: pet-firefly 4.8s ease-in-out infinite;
+}
+
+.pet-grass {
+  animation: pet-sway 5.6s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.pet-drift {
+  animation: pet-drift 4.2s ease-in-out infinite;
+  transform-origin: 210px 190px;
+}
+
+.pet-wiggle {
+  animation: pet-wiggle 1.4s ease-in-out infinite;
+  transform-origin: 210px 190px;
+}
+
+.pet-doze {
+  animation: pet-doze 5.4s ease-in-out infinite;
+  transform-origin: 210px 190px;
+}
+
+.pet-peek {
+  animation: pet-peek 3.2s ease-in-out infinite;
+  transform-origin: 210px 190px;
+}
+
+@keyframes pet-firefly {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: .18;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.35);
+    opacity: .62;
+  }
+}
+
+@keyframes pet-sway {
+  0%, 100% {
+    transform: rotate(-1.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+
+@keyframes pet-drift {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1deg);
+  }
+}
+
+@keyframes pet-wiggle {
+  0%, 100% {
+    transform: translateX(0) rotate(0);
+  }
+  25% {
+    transform: translateX(-4px) rotate(-2deg);
+  }
+  75% {
+    transform: translateX(4px) rotate(2deg);
+  }
+}
+
+@keyframes pet-doze {
+  0%, 100% {
+    transform: translateY(0) scaleY(1);
+  }
+  50% {
+    transform: translateY(5px) scaleY(.97);
+  }
+}
+
+@keyframes pet-peek {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+  35% {
+    transform: translateY(-9px) rotate(-1.5deg);
+  }
+  70% {
+    transform: translateY(-3px) rotate(1deg);
+  }
+}
+
+.pet-creature .pet-state-grid,
+.pet-result-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 12px;
+}
+
+.pet-creature .pet-state-grid div,
+.pet-result-grid div {
+  background: rgba(244, 241, 232, 0.72);
+  border: 1px solid rgba(215, 208, 194, 0.9);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.pet-creature .pet-state-grid span,
+.pet-result-grid span,
+.pet-result-action {
+  display: block;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--pet-moss);
+  margin-bottom: 4px;
+}
+
+.pet-creature .pet-state-grid strong,
+.pet-result-grid strong {
+  display: block;
+  color: var(--pet-ink);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.pet-mood-line {
+  margin: 12px 0 10px;
+  color: var(--pet-soft);
+  font-style: italic;
+}
+
+.pet-traits {
+  display: grid;
+  gap: 7px;
+}
+
+.pet-trait {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr) 40px;
+  align-items: center;
+  gap: 8px;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.76rem;
+}
+
+.pet-trait-name {
+  color: var(--pet-soft);
+  text-transform: capitalize;
+}
+
+.pet-trait-meter {
+  height: 8px;
+  border-radius: 999px;
+  background: #e5ddd1;
+  overflow: hidden;
+}
+
+.pet-trait-meter i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--pet-moss), var(--pet-gold));
+}
+
+.pet-trait-value {
+  text-align: right;
+  color: var(--pet-soft);
+}
+
+#pet-moment textarea {
+  background: #fffdf8 !important;
+  border: 1px solid var(--pet-line) !important;
+  border-radius: 8px !important;
+  color: var(--pet-ink) !important;
+  font-family: "Iowan Old Style", Georgia, serif !important;
+  font-size: 1.04rem !important;
+  line-height: 1.6 !important;
+  padding: 14px 16px !important;
+  box-shadow: inset 0 1px 2px rgba(36, 49, 47, 0.06) !important;
+}
+
+#pet-moment textarea::placeholder {
+  color: #9a9182 !important;
+}
+
+#pet-model {
+  max-width: 240px;
+}
+
+#pet-confirm-new {
+  margin-top: 4px;
+}
+
+#pet-confirm-new label {
+  color: var(--pet-soft) !important;
+  font-family: ui-sans-serif, system-ui, sans-serif !important;
+  font-size: .84rem !important;
+}
+
+.pet-primary button,
+button.pet-primary,
+#pet-feed button {
+  background: var(--pet-clay) !important;
+  border: none !important;
+  color: #fff8f2 !important;
+  border-radius: 8px !important;
+  font-family: ui-sans-serif, system-ui, sans-serif !important;
+  font-weight: 600 !important;
+}
+
+.pet-secondary button,
+button.pet-secondary,
+#pet-fresh button {
+  background: transparent !important;
+  border: 1px solid var(--pet-line) !important;
+  border-radius: 8px !important;
+  color: var(--pet-soft) !important;
+  font-family: ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.pet-result {
+  margin-top: 12px;
+}
+
+.pet-result-grid {
+  margin-bottom: 10px;
+}
+
+.pet-result-action {
+  margin-top: 4px;
+  color: var(--pet-soft);
+}
+
+.pet-receipt {
+  padding: 10px 12px;
+  border: 1px solid var(--pet-line);
+  border-radius: 8px;
+  background: rgba(255, 253, 248, 0.66);
+  margin-bottom: 8px;
+}
+
+.pet-receipt-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: var(--pet-moss);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.pet-receipt-moment {
+  color: var(--pet-ink);
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.pet-receipt-tags,
+.pet-artifact-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pet-receipt-tags span,
+.pet-artifact-tags span {
+  display: inline-flex;
+  border: 1px solid var(--pet-line);
+  background: #f7f4ec;
+  border-radius: 999px;
+  padding: 3px 8px;
+  color: var(--pet-soft);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.72rem;
+}
+
+.pet-artifact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.pet-artifact {
+  border: 1px solid var(--pet-line);
+  border-radius: 8px;
+  background: rgba(255, 253, 248, 0.72);
+  padding: 10px;
+}
+
+.pet-artifact-svg svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.pet-artifact-title {
+  margin-top: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pet-ink);
+}
+
+.pet-artifact-inscription {
+  margin-top: 4px;
+  color: var(--pet-soft);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.pet-event {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr) 110px;
+  gap: 10px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--pet-line);
+  align-items: start;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+.pet-event:first-of-type {
+  border-top: none;
+}
+
+.pet-event-kind {
+  color: var(--pet-moss);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+}
+
+.pet-event-text {
+  color: var(--pet-ink);
+  line-height: 1.45;
+}
+
+.pet-event-ts {
+  color: var(--pet-soft);
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+.pet-empty {
+  color: var(--pet-soft);
+  font-style: italic;
+  line-height: 1.55;
+}
+
+@media (max-width: 820px) {
+  .pet-creature .pet-state-grid,
+  .pet-result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pet-trait,
+  .pet-event {
+    grid-template-columns: 1fr;
+  }
+
+  .pet-event-ts,
+  .pet-trait-value {
+    text-align: left;
+  }
+}
