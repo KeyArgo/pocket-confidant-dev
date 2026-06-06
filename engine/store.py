@@ -179,3 +179,17 @@ def is_db_empty(db_path: Path | str) -> bool:
     (row,) = conn.execute("SELECT COUNT(*) FROM entries").fetchone()
     conn.close()
     return row == 0
+
+
+def clear_all_entries(db_path: str) -> int:
+    """Delete ALL entries from the database. Returns count deleted.
+    WARNING: This is destructive! Only use in dev mode or with user confirmation.
+    """
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    cur.execute("SELECT COUNT(*) FROM entries")
+    count = cur.fetchone()[0]
+    cur.execute("DELETE FROM entries")
+    conn.commit()
+    conn.close()
+    return count

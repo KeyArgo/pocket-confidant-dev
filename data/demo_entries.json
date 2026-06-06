@@ -1,13 +1,13 @@
 [
   {
     "created_at": "2026-05-28T00:00:00",
-    "text": "Had that dentist appointment today. The hygienist said my gums look better than last time — the new flossing routine is paying off. Still hate the sound of the drill though. Sat in the waiting room listening to bad elevator music for 20 minutes before they called me.",
+    "text": "Had that dentist appointment today. The hygienist said my gums look better than last time \u2014 the new flossing routine is paying off. Still hate the sound of the drill though. Sat in the waiting room listening to bad elevator music for 20 minutes before they called me.",
     "reflection": "",
     "question": ""
   },
   {
     "created_at": "2026-05-29T01:00:00",
-    "text": "Tried that new ramen place on 5th Street. The tonkotsu was solid but the broth was way too salty. Sat at the bar and watched the chef work — kind of meditative. Might go back for the spicy miso.",
+    "text": "Tried that new ramen place on 5th Street. The tonkotsu was solid but the broth was way too salty. Sat at the bar and watched the chef work \u2014 kind of meditative. Might go back for the spicy miso.",
     "reflection": "",
     "question": ""
   },
@@ -25,13 +25,13 @@
   },
   {
     "created_at": "2026-06-01T04:00:00",
-    "text": "Mom called. She wants to visit next weekend and I haven't cleaned the guest room since last Thanksgiving. She also asked about the promotion again — I don't have the heart to tell her I'm not even sure I want it.",
+    "text": "Mom called. She wants to visit next weekend and I haven't cleaned the guest room since last Thanksgiving. She also asked about the promotion again \u2014 I don't have the heart to tell her I'm not even sure I want it.",
     "reflection": "",
     "question": ""
   },
   {
     "created_at": "2026-06-02T05:00:00",
-    "text": "Finally went for that run. Only 2 miles but the air felt amazing. Saw a neighbor walking her dog — the one with the tiny greyhound that always looks confused. We waved. Small thing but it made the whole morning better.",
+    "text": "Finally went for that run. Only 2 miles but the air felt amazing. Saw a neighbor walking her dog \u2014 the one with the tiny greyhound that always looks confused. We waved. Small thing but it made the whole morning better.",
     "reflection": "",
     "question": ""
   },
@@ -1069,7 +1069,7 @@
   },
   {
     "created_at": "2025-12-08T23:00:00",
-    "text": "Work holiday party. I went for one hour. That was enough. Raj left at the same time.默契.",
+    "text": "Work holiday party. I went for one hour. That was enough. Raj left at the same time.\u9ed8\u5951.",
     "reflection": "",
     "question": ""
   },
@@ -1393,7 +1393,7 @@
   },
   {
     "created_at": "2026-01-31T23:00:00",
-    "text": "February. The longest month. Not because of the days — because of the waiting.",
+    "text": "February. The longest month. Not because of the days \u2014 because of the waiting.",
     "reflection": "",
     "question": ""
   },
@@ -1526,12 +1526,6 @@
   {
     "created_at": "2026-02-22T23:00:00",
     "text": "Work was productive. The new year energy is real.",
-    "reflection": "",
-    "question": ""
-  },
-  {
-    "created_at": "2026-02-23T23:00:00",
-    "text": "Talked to Raj about the journal idea. He said it sounds like a hackathon project. He's right.",
     "reflection": "",
     "question": ""
   },
@@ -1974,12 +1968,6 @@
     "question": ""
   },
   {
-    "created_at": "2026-05-09T00:00:00",
-    "text": "Raj and I had coffee. He asked about the hackathon timeline. I said three weeks. He said 'you're going to win.'",
-    "reflection": "",
-    "question": ""
-  },
-  {
     "created_at": "2026-05-10T00:00:00",
     "text": "Sarah texted about brunch. I said yes before I could overthink it.",
     "reflection": "",
@@ -2082,12 +2070,6 @@
     "question": ""
   },
   {
-    "created_at": "2026-05-27T00:00:00",
-    "text": "Work is steady. The hackathon prep is intense. I'm sleeping less but it's the good kind of tired.",
-    "reflection": "",
-    "question": ""
-  },
-  {
     "created_at": "2026-05-28T00:00:00",
     "text": "Late night coding. The side project is almost ready to show people.",
     "reflection": "",
@@ -2102,18 +2084,6 @@
   {
     "created_at": "2026-05-30T00:00:00",
     "text": "Evening walk. The neighborhood is blooming. Every yard has something different growing.",
-    "reflection": "",
-    "question": ""
-  },
-  {
-    "created_at": "2026-05-31T00:00:00",
-    "text": "End of May. The hackathon is two weeks away. The app is almost ready. I'm almost ready.",
-    "reflection": "",
-    "question": ""
-  },
-  {
-    "created_at": "2026-06-01T00:00:00",
-    "text": "June. The hackathon is three weeks out. Time to polish everything.",
     "reflection": "",
     "question": ""
   },
@@ -2250,12 +2220,6 @@
     "question": ""
   },
   {
-    "created_at": "2026-06-27T00:00:00",
-    "text": "Hackathon submission day. Uploaded the app. My hands were shaking. Sarah was on speaker. She talked me through it.",
-    "reflection": "",
-    "question": ""
-  },
-  {
     "created_at": "2026-06-28T00:00:00",
     "text": "It's submitted. Whatever happens, I made this. Something that remembers what matters and reflects it back.",
     "reflection": "",
@@ -2280,20 +2244,8 @@
     "question": "What might help make those quiet moments feel more special to you?"
   },
   {
-    "created_at": "2026-06-01T00:00:00",
-    "text": "June. The hackathon submission is this week. Time to polish everything.",
-    "reflection": "",
-    "question": ""
-  },
-  {
     "created_at": "2026-06-05T00:00:00",
     "text": "Final polish on the app. Katie arrived to help review the photography portfolio. She has an incredible eye.",
-    "reflection": "",
-    "question": ""
-  },
-  {
-    "created_at": "2026-06-06T00:00:00",
-    "text": "Hackathon submission day. Uploaded the app. My hands were shaking. Sarah was on speaker. Whatever happens, I made this. The journal remembers everything. I'm glad it does.",
     "reflection": "",
     "question": ""
   },

@@ -324,8 +324,41 @@ def build() -> gr.Blocks:
                 )
                 gr.Markdown("*Charts coming soon!*")
 
+        with gr.Accordion("\U0001f527 Developer Tools", open=False):
+            gr.Markdown("**Warning:** These actions are destructive and cannot be undone.")
+            with gr.Row():
+                clear_btn = gr.Button("\U0001f5d1 Clear All Data", variant="stop")
+                reload_btn = gr.Button("\U0001f504 Reload Demo Data")
+            dev_status = gr.Markdown("")
+
+            def on_clear_data():
+                from engine.store import clear_all_entries
+                count = clear_all_entries(DB_PATH)
+                return f"Deleted {count} entries. Refresh page to see changes."
+
+            def on_reload_demo():
+                from engine.store import seed_demo_data, clear_all_entries
+                clear_all_entries(DB_PATH)
+                count = seed_demo_data(DB_PATH)
+                return f"Cleared and reloaded {count} demo entries."
+
+            clear_btn.click(on_clear_data, outputs=[dev_status])
+            reload_btn.click(on_reload_demo, outputs=[dev_status])
+
     # Remember whether the theme/css still need to be supplied at launch() time.
     demo._pc_needs_launch_css = not _accepts_ctor_css
+    
+    # GitHub link at bottom
+    gr.HTML(
+        '<div style="text-align: center; padding: 20px 0; margin-top: 20px; '
+        'border-top: 1px solid #e0d4bd;">'
+        '<a href="https://github.com/KeyArgo/pocket-confidant" target="_blank" '
+        'style="color: #6b6253; text-decoration: none; font-size: 0.9rem;">'
+        '📦 View on GitHub: KeyArgo/pocket-confidant'
+        '</a>'
+        '</div>'
+    )
+    
     return demo
 
 
@@ -340,3 +373,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
