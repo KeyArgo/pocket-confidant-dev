@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# pocket-confidant bump_version — auto-runs on commit.
+# Idempotent: no-op if VERSION is already in sync. Will not dirty the tree
+# if nothing has changed since the last bump.
+set -euo pipefail
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+python "$REPO_ROOT/scripts/bump_version.py" --stage --quiet

@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0-dev",
+  "base": "0.2.0",
+  "tag": "v0.2.0",
+  "tag_exists": false,
+  "state": "prerelease",
+  "build": null,
+  "commits_since_tag": 0,
+  "commit": "6690e8f",
+  "branch": "hackathon-submission",
+  "generated_at": "2026-06-10T13:58:00+00:00"
+}
