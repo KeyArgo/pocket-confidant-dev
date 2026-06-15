@@ -4,12 +4,13 @@ Everything lives on-device: entries in SQLite, embeddings computed by a local
 ollama embedding model. No cloud, no account. The semantic recall is what lets
 the companion say "you mentioned the dentist on Tuesday — how'd that go?" without
 the model needing a huge context window: we retrieve only the relevant past
-entries and feed those in.
+entries and hand them to the chat model as context.
 """
 from __future__ import annotations
 
 import json
 import math
+import os
 import sqlite3
 import time
 from dataclasses import dataclass
@@ -20,19 +21,80 @@ import requests
 
 DEFAULT_DB = Path.home() / ".pocket-confidant" / "journal.db"
 EMBED_MODEL = "nomic-embed-text:latest"
+EMBED_DIM = 768  # nomic-embed-text is 768-dim; stored as JSON text in SQLite
 OLLAMA = "http://localhost:11434"
+
+# Sentence-transformers fallback (dev path when ollama is down). On HF Spaces
+# we use a llama.cpp embedding GGUF instead — no torch, no 1.5 GB CUDA wheels.
+ST_MODEL_ID = "nomic-ai/nomic-embed-text-v1.5"
+
+# Space-friendly embedding GGUF (no torch dependency). Used when BACKEND=llamacpp.
+EMBED_GGUF_REPO = "nomic-ai/nomic-embed-text-v1.5-GGUF"
+EMBED_GGUF_FILE = "nomic-embed-text-v1.5.Q4_K_M.gguf"
+
 DEMO_DATA_PATH = Path(__file__).parent.parent / "data" / "demo_entries.json"
+
+_ST_MODEL = None  # lazy-loaded singleton for the sentence-transformers path
+_LLAMACPP_EMBED = None  # lazy-loaded singleton for the llama.cpp embedding path
+
+
+def _get_st_model():
+    """Lazy-load the sentence-transformers model (dev fallback)."""
+    global _ST_MODEL
+    if _ST_MODEL is None:
+        from sentence_transformers import SentenceTransformer
+        _ST_MODEL = SentenceTransformer(ST_MODEL_ID, trust_remote_code=True)
+    return _ST_MODEL
+
+
+def _get_llamacpp_embed():
+    """Lazy-load the llama.cpp embedding backend (HF Space path)."""
+    global _LLAMACPP_EMBED
+    if _LLAMACPP_EMBED is None:
+        import os
+        from .backends import LlamaCppTextBackend
+        gguf = os.environ.get("POCKET_CONFIDANT_EMBED_GGUF", "")
+        if not gguf:
+            raise RuntimeError(
+                "POCKET_CONFIDANT_EMBED_GGUF not set. Space load_model.py should set it."
+            )
+        _LLAMACPP_EMBED = LlamaCppTextBackend(model_path=gguf, embedding=True)
+    return _LLAMACPP_EMBED
 
 
 def embed(text: str, model: str = EMBED_MODEL, host: str = OLLAMA) -> list[float]:
-    """Embed text with a local ollama model. Private — never leaves the machine."""
-    resp = requests.post(
-        f"{host.rstrip('/')}/api/embeddings",
-        json={"model": model, "prompt": text},
-        timeout=60,
-    )
-    resp.raise_for_status()
-    return resp.json()["embedding"]
+    """Embed text with a local model. Tries in order:
+      1. ollama (dev)
+      2. llama.cpp embedding (HF Space, when POCKET_CONFIDANT_BACKEND=llamacpp)
+      3. sentence-transformers (dev fallback)
+
+    Private — never leaves the machine.
+    """
+    backend = os.environ.get("POCKET_CONFIDANT_BACKEND", "ollama").lower()
+
+    if backend == "llamacpp":
+        # Skip ollama; go straight to llama.cpp embeddings.
+        try:
+            be = _get_llamacpp_embed()
+            return be.embed(text)
+        except Exception:
+            pass
+    else:
+        # Dev path: try ollama first.
+        try:
+            resp = requests.post(
+                f"{host.rstrip('/')}/api/embeddings",
+                json={"model": model, "prompt": text},
+                timeout=20,
+            )
+            resp.raise_for_status()
+            return resp.json()["embedding"]
+        except Exception:
+            pass
+
+    # Last-resort fallback: sentence-transformers.
+    st = _get_st_model()
+    return st.encode(text, normalize_embeddings=True).tolist()
 
 
 def _cosine(a: list[float], b: list[float]) -> float:

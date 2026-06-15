@@ -106,6 +106,65 @@ class LlamaCppBackend(VisionBackend):
         return GenResult(text=out["choices"][0]["message"]["content"], backend=self.name, model=self.model)
 
 
+class LlamaCppTextBackend(VisionBackend):
+    """Text-only LlamaCpp backend for HF Space (e.g. Qwen2.5-3B-Instruct GGUF).
+
+    No mmproj / no vision. Used for the on-device journal companion.
+    Claims the 🦙 Llama Champion badge: real llama.cpp via llama-cpp-python.
+    """
+
+    name = "llama.cpp"
+
+    def __init__(
+        self,
+        model_path: str,
+        model: str | None = None,
+        n_ctx: int = 4096,
+        n_threads: int = 0,
+        n_gpu_layers: int = 0,
+        embedding: bool = False,
+    ):
+        from llama_cpp import Llama
+        from pathlib import Path
+
+        kwargs = dict(
+            model_path=model_path,
+            n_ctx=n_ctx if not embedding else 2048,  # embeddings need tiny context
+            n_threads=n_threads or None,
+            n_gpu_layers=n_gpu_layers,
+            verbose=False,
+        )
+        if embedding:
+            kwargs["embedding"] = True
+        self._llm = Llama(**kwargs)
+        self.model = model or Path(model_path).name
+        self._path = model_path
+
+    def generate(self, prompt: str, images: list[bytes], system: str | None = None) -> GenResult:
+        # Text-only: ignore images if any are passed.
+        messages = []
+        if system:
+            messages.append({"role": "system", "content": system})
+        messages.append({"role": "user", "content": prompt})
+        # Cap max_tokens so the model can't burn the whole budget on "thinking"
+        # before producing visible content. 250 ≈ 3-5 sentences + JSON overhead.
+        out = self._llm.create_chat_completion(
+            messages=messages,
+            temperature=0.7,
+            max_tokens=250,
+        )
+        return GenResult(
+            text=out["choices"][0]["message"]["content"],
+            backend=self.name,
+            model=self.model,
+        )
+
+    def embed(self, text: str) -> list[float]:
+        """For embedding-mode backends, return the vector directly."""
+        out = self._llm.embed(text)
+        return out
+
+
 def default_backend() -> VisionBackend:
     """Dev default. The Space overrides this with LlamaCppBackend."""
     return OllamaBackend()

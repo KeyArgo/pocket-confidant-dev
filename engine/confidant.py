@@ -13,6 +13,7 @@ Design constraints that keep it from being creepy or generic:
 from __future__ import annotations
 
 import json
+import os
 import re
 from dataclasses import dataclass
 
@@ -26,6 +27,35 @@ DEFAULT_MODEL = "qwen3:8b"
 # Cosine floor for surfacing a past entry as a memory callback candidate. Tuned so
 # same-topic entries (dentist->dentist) connect but cross-topic ones don't.
 RECALL_FLOOR = 0.58
+
+# Backend selection. "ollama" (dev) talks to a local ollama daemon.
+# "llamacpp" uses a real llama.cpp via llama-cpp-python (the HF Space target).
+# Chosen via the POCKET_CONFIDANT_BACKEND env var; defaults to ollama.
+BACKEND = os.environ.get("POCKET_CONFIDANT_BACKEND", "ollama").lower()
+_LLAMACPP_BACKEND = None
+
+
+def _get_llamacpp_backend():
+    """Lazy-init the singleton LlamaCppTextBackend."""
+    global _LLAMACPP_BACKEND
+    if _LLAMACPP_BACKEND is None:
+        from .backends import LlamaCppTextBackend
+        gguf_path = os.environ.get("POCKET_CONFIDANT_GGUF_PATH", "")
+        n_ctx = int(os.environ.get("POCKET_CONFIDANT_N_CTX", "4096"))
+        n_threads = int(os.environ.get("POCKET_CONFIDANT_N_THREADS", "0"))
+        n_gpu_layers = int(os.environ.get("POCKET_CONFIDANT_N_GPU_LAYERS", "0"))
+        if not gguf_path:
+            raise RuntimeError(
+                "POCKET_CONFIDANT_BACKEND=llamacpp but POCKET_CONFIDANT_GGUF_PATH is empty. "
+                "Set it to the path of a GGUF file."
+            )
+        _LLAMACPP_BACKEND = LlamaCppTextBackend(
+            model_path=gguf_path,
+            n_ctx=n_ctx,
+            n_threads=n_threads,
+            n_gpu_layers=n_gpu_layers,
+        )
+    return _LLAMACPP_BACKEND
 
 PERSONA = """You are the quiet voice inside someone's private journal. You are warm, grounded, and a little wry — like a trusted friend who listens well and doesn't perform. You are NOT a therapist or a life coach. You never diagnose, never lecture, never pile on advice, never use chirpy positivity.
 
@@ -101,6 +131,11 @@ def _extract_json(text: str) -> dict | None:
 
 
 def _chat(system: str, user: str, model: str, host: str = OLLAMA) -> str:
+    if BACKEND == "llamacpp":
+        backend = _get_llamacpp_backend()
+        result = backend.generate(prompt=user, images=[], system=system)
+        return result.text
+    # Default: ollama
     resp = requests.post(
         f"{host.rstrip('/')}/api/chat",
         json={

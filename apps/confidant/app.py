@@ -442,6 +442,9 @@ def build() -> gr.Blocks:
                                     {"role": "user", "content": user_msg},
                                 ],
                                 "stream": False,
+                                # Cap num_predict so the model can't burn the whole
+                                # budget on "thinking" before producing content.
+                                "options": {"num_predict": 250, "temperature": 0.7},
                             },
                             timeout=60,
                         )
