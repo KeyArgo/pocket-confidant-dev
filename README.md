@@ -4,6 +4,8 @@
 
 Built for the Hugging Face **Build Small Hackathon** — *Small Models, Big Adventure* · **Backyard AI** track.
 
+The current UI foregrounds the point of the app immediately: a private journal, a visible memory pulse, and a companion that only calls back when the connection is real.
+
 ## What it does
 
 A diary is the most private thing you own. You would never paste it into a cloud chatbot. Pocket Confidant reads each entry you write and gives back:

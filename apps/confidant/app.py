@@ -29,10 +29,13 @@ _REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
-import gradio as gr
+try:
+    import gradio as gr
+except Exception:  # pragma: no cover - lets helper-level tests import this module
+    gr = None
 
 from engine import confidant
-from engine.store import JournalStore
+from engine.store import Entry, JournalStore
 
 # --------------------------------------------------------------------------- #
 # Configuration
@@ -88,14 +91,159 @@ def _version_footer_html() -> str:
         '</div>'
     )
 
-# Small models the user can pick between, ranked by a warmth/specificity bake-off
-# (tests/model_eval.py): qwen3.5:9b warmest, minicpm-v close 2nd + best specificity
-# (and OpenBMB sponsor -> $10k category), qwen3:8b a touch wordy, gemma4:e4b too long.
-MODELS = ["minicpm-v:latest", "qwen3.5:9b", "qwen3:8b", "gemma4:e4b"]
-# Default = MiniCPM (OpenBMB sponsor) to compete in their $10k category; ~tied on
-# warmth with qwen3.5:9b but best specificity. Override via POCKET_CONFIDANT_MODEL
-# (e.g. set qwen3.5:9b if live journaling reveals it feels warmer to you).
-DEFAULT_MODEL = os.environ.get("POCKET_CONFIDANT_MODEL", "qwen3.5:9b")
+
+def _story_stats() -> dict:
+    """Summarize the current journal so the landing UI feels alive."""
+    try:
+        stats = get_entry_stats()
+    except Exception:
+        stats = {"total_entries": 0, "avg_words": 0}
+    try:
+        streak = get_writing_streak()
+    except Exception:
+        streak = {"current": 0, "longest": 0}
+    try:
+        callbacks = sum(1 for e in STORE.recent(5) if (e.callback or "").strip())
+    except Exception:
+        callbacks = 0
+    return {
+        "total_entries": int(stats.get("total_entries", 0) or 0),
+        "avg_words": int(stats.get("avg_words", 0) or 0),
+        "streak_current": int(streak.get("current", 0) or 0),
+        "streak_longest": int(streak.get("longest", 0) or 0),
+        "callbacks_recent": callbacks,
+    }
+
+
+def _pill_html(label: str, value: str, tone: str = "") -> str:
+    tone_class = f" pc-pill--{tone}" if tone else ""
+    return (
+        f'<div class="pc-pill{tone_class}">'
+        f'<span class="pc-pill-label" style="color:#6b735c;">{_esc(label)}</span>'
+        f'<span class="pc-pill-value" style="color:#241d16;font-weight:700;">{_esc(value)}</span>'
+        '</div>'
+    )
+
+
+def _landing_html() -> str:
+    """Landing copy that makes the product story obvious at a glance."""
+    return (
+        '<div class="pc-hero" style="background: linear-gradient(180deg, rgba(255,253,248,0.99), rgba(236,225,206,0.99)); color: #2f281f;">'
+        '<div class="pc-hero-kicker" style="color: #7a866c;">Private reflection, not a chatbot</div>'
+        '<h1 style="color: #2f281f; opacity: 1;">Write one entry. Get one reflection. See the pattern.</h1>'
+        '<p class="pc-hero-copy" style="color: #473c2f;">'
+        'Pocket Confidant is a private journal on your device. You write about your day, it gives back '
+        'one reflection and one question, then it reaches for a past entry only when the match is real.'
+        '</p>'
+        '<div class="pc-pill-row">'
+        f'{_pill_html("You write", "one real thing from today", "warm")}'
+        f'{_pill_html("I reply", "one reflection, one question", "accent")}'
+        f'{_pill_html("I remember", "only when a past entry truly fits", "sage")}'
+        '</div>'
+        '</div>'
+    )
+
+
+def _pulse_html(stats: dict, callback_ready: bool = False) -> str:
+    """Small living visual hook inspired by the Petriarium work, but journal-first."""
+    entries = int(stats.get("total_entries", 0) or 0)
+    streak = int(stats.get("streak_current", 0) or 0)
+    avg_words = int(stats.get("avg_words", 0) or 0)
+    if callback_ready:
+        tone = "awake"
+        status = "A real callback just landed."
+        badge = "memory linked"
+    elif entries >= 8:
+        tone = "growing"
+        status = "It has enough history to notice patterns."
+        badge = "memory growing"
+    elif entries >= 1:
+        tone = "listening"
+        status = "Your journal is starting to feel known."
+        badge = "listening"
+    else:
+        tone = "quiet"
+        status = "Start with one line and let it learn."
+        badge = "quiet"
+    return (
+        f'<div class="pc-pulse pc-pulse--{tone}" style="background: linear-gradient(180deg, rgba(255,253,248,0.99), rgba(236,225,206,0.99)); color: #2f281f;">'
+        '<div class="pc-orb-shell">'
+        '<div class="pc-orb"></div>'
+        '<div class="pc-orb-ring"></div>'
+        '<div class="pc-orb-leaf pc-orb-leaf--left"></div>'
+        '<div class="pc-orb-leaf pc-orb-leaf--right"></div>'
+        '</div>'
+        '<div class="pc-pulse-copy">'
+        '<div class="pc-pulse-label" style="color: #7a866c;">Companion state</div>'
+        f'<div class="pc-pulse-status" style="color: #241d16;font-weight:500;">{_esc(status)}</div>'
+        f'<div class="pc-pulse-badge" style="color: #7a866c; background: rgba(138,154,123,0.14);">{_esc(badge)}</div>'
+        '<div class="pc-pulse-stats" style="color: #4b4033;">'
+        f'{entries} entries · {streak}-day streak · {avg_words} avg words'
+        '</div>'
+        '</div>'
+        '</div>'
+    )
+
+
+def _utility_strip_html() -> str:
+    return (
+        '<div class="pc-utility-strip">'
+        '<span style="color: #4f4335;">Private by design</span>'
+        '<span style="color: #4f4335;">One reflection</span>'
+        '<span style="color: #4f4335;">One good question</span>'
+        '<span style="color: #4f4335;">Memory only when it fits</span>'
+        '</div>'
+    )
+
+
+def _how_it_works_html() -> str:
+    return (
+        '<div class="pc-explainer">'
+        '<div class="pc-explainer-kicker">How it works</div>'
+        '<div class="pc-explainer-grid">'
+        '<div class="pc-step"><div class="pc-step-num">1</div><div><div class="pc-step-title">Write</div><div class="pc-step-copy">Type one real line about today.</div></div></div>'
+        '<div class="pc-step"><div class="pc-step-num">2</div><div><div class="pc-step-title">Reflect</div><div class="pc-step-copy">Pocket Confidant returns one short reflection and one question.</div></div></div>'
+        '<div class="pc-step"><div class="pc-step-num">3</div><div><div class="pc-step-title">Remember</div><div class="pc-step-copy">If a past entry truly matches, it pulls that memory back.</div></div></div>'
+        '</div>'
+        '<div class="pc-explainer-foot">Private on your device. No cloud. No account.</div>'
+        '</div>'
+    )
+
+
+def _sample_prompts_html() -> str:
+    return (
+        '<div class="pc-samples">'
+        '<div class="pc-samples-kicker">Try writing about</div>'
+        '<div class="pc-samples-row">'
+        '<span class="pc-sample">a moment that felt heavy</span>'
+        '<span class="pc-sample">one thing you noticed today</span>'
+        '<span class="pc-sample">what you want tomorrow to feel like</span>'
+        '</div>'
+        '</div>'
+    )
+
+
+def _receipt_html(entries: list[Entry], limit: int = 2) -> str:
+    """Render a compact source-receipt block for recalled entries."""
+    if not entries:
+        return '<div class="pc-receipts"><div class="pc-receipts-head">source receipts</div><div class="pc-empty">No receipts yet.</div></div>'
+    blocks = ['<div class="pc-receipts">', '<div class="pc-receipts-head">source receipts</div>']
+    for e in entries[:limit]:
+        snippet = (e.text or "").strip().replace("\n", " ")
+        if len(snippet) > 220:
+            snippet = snippet[:220] + "..."
+        blocks.append(
+            '<div class="pc-receipt">'
+            f'<div class="pc-receipt-date">{_esc(e.when)}</div>'
+            f'<div class="pc-receipt-text">{_esc(snippet)}</div>'
+            '</div>'
+        )
+    blocks.append("</div>")
+    return "\n".join(blocks)
+
+# Only expose the single model we actually want to use.
+MODELS = ["minicpm-v:latest"]
+DEFAULT_MODEL = os.environ.get("POCKET_CONFIDANT_MODEL", "minicpm-v:latest")
 
 _THEME_CSS = (Path(__file__).resolve().parent / "theme.css").read_text(encoding="utf-8")
 
@@ -195,6 +343,7 @@ def _format_chat(history: list[dict]) -> str:
 def on_submit(entry_text: str, model: str):
     """Reflect on a new entry, persist it, refresh the timeline."""
     text = (entry_text or "").strip()
+    current_stats = _story_stats()
     if not text:
         return (
             '<div class="pc-card"><div class="pc-reflection">'
@@ -203,6 +352,7 @@ def on_submit(entry_text: str, model: str):
             _timeline_html(),
             entry_text,
             "",  # no submitted entry to display
+            _pulse_html(current_stats, callback_ready=False),
         )
 
     model = model or DEFAULT_MODEL
@@ -240,7 +390,7 @@ def on_submit(entry_text: str, model: str):
         "</div>"
     )
     # Don't clear the textarea — keep it visible for reference
-    return card, _timeline_html(), entry_text, submitted_html
+    return card, _timeline_html(), entry_text, submitted_html, _pulse_html(_story_stats(), callback_ready=bool(callback.strip()))
 
 
 def on_week(model: str):
@@ -303,6 +453,11 @@ def get_writing_streak():
 # UI
 # --------------------------------------------------------------------------- #
 def build() -> gr.Blocks:
+    if gr is None:
+        raise RuntimeError(
+            "gradio is not installed in this environment. "
+            "Run: uv pip install -r apps/confidant/requirements.txt"
+        )
     # Gradio 4/5 took `css`/`theme` on the Blocks constructor; Gradio 6 moved them
     # to launch(). Detect which this version supports so the Off-Brand theme renders
     # either way (and we avoid a deprecation warning / silently-dropped css).
@@ -315,25 +470,44 @@ def build() -> gr.Blocks:
 
     with gr.Blocks(**_blocks_kwargs) as demo:
         # Theme toggle button (sun/moon)
+        _theme_toggle_js = """
+        () => {
+          const root = document.documentElement;
+          const body = document.body;
+          const host = document.querySelector(".gradio-container");
+          const isDark = !(root.classList.contains("dark") || body.classList.contains("dark"));
+          root.classList.toggle("dark", isDark);
+          body.classList.toggle("dark", isDark);
+          if (host) host.classList.toggle("dark", isDark);
+          root.setAttribute("data-pc-theme", isDark ? "dark" : "light");
+          body.setAttribute("data-pc-theme", isDark ? "dark" : "light");
+          if (host) host.setAttribute("data-pc-theme", isDark ? "dark" : "light");
+          let btn = document.querySelector("#pc-theme-toggle button");
+          if (!btn) btn = document.getElementById("pc-theme-toggle");
+          if (btn) btn.textContent = isDark ? "🌙" : "☀️";
+          localStorage.setItem("pc-theme", isDark ? "dark" : "light");
+        }
+        """
+        theme_toggle = gr.Button("🌙", elem_id="pc-theme-toggle", variant="secondary")
+        theme_toggle.click(
+            fn=lambda: None,
+            inputs=[],
+            outputs=[],
+            js=_theme_toggle_js,
+        )
         gr.HTML(
-            '<button id="pc-theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">☀️</button>'
             '<script>'
-            'function toggleTheme() {'
-            '  const btn = document.getElementById("pc-theme-toggle");'
-            '  const isDark = document.body.classList.toggle("dark");'
-            '  if (isDark) {'
-            '    btn.textContent = "🌙";'
-            '    localStorage.setItem("pc-theme", "dark");'
-            '  } else {'
-            '    btn.textContent = "☀️";'
-            '    localStorage.setItem("pc-theme", "light");'
-            '  }'
-            '}'
-            'document.addEventListener("DOMContentLoaded", function() {'
-            '  const saved = localStorage.getItem("pc-theme");'
-            '  if (saved === "dark") {'
+            'window.addEventListener("load", function() {'
+            '  const useDark = true;'
+            '  const btn = document.querySelector("#pc-theme-toggle button") || document.getElementById("pc-theme-toggle");'
+            '  if (useDark) {'
+            '    document.documentElement.classList.add("dark");'
             '    document.body.classList.add("dark");'
-            '    const btn = document.getElementById("pc-theme-toggle");'
+            '    const host = document.querySelector(".gradio-container");'
+            '    if (host) host.classList.add("dark");'
+            '    document.documentElement.setAttribute("data-pc-theme", "dark");'
+            '    document.body.setAttribute("data-pc-theme", "dark");'
+            '    if (host) host.setAttribute("data-pc-theme", "dark");'
             '    if (btn) btn.textContent = "🌙";'
             '  }'
             '});'
@@ -352,12 +526,22 @@ def build() -> gr.Blocks:
             "</div>"
         )
 
+        gr.HTML(
+            '<div class="pc-landing-row">'
+            f'{_landing_html()}'
+            f'{_pulse_html(_story_stats())}'
+            '</div>'
+        )
+        gr.HTML(_how_it_works_html())
+        gr.HTML(_sample_prompts_html())
+
         with gr.Tabs():
             with gr.Tab("Journal"):
+                gr.HTML(_utility_strip_html())
                 entry = gr.Textbox(
                     elem_id="pc-entry",
                     label="Today",
-                    placeholder="What's on your mind today? Even one sentence is enough…",
+                    placeholder="Write one real thing from today. Even a single sentence is enough…",
                     lines=6,
                     show_label=False,
                 )
@@ -375,138 +559,31 @@ def build() -> gr.Blocks:
 
                 response = gr.HTML(value="")
                 submitted_entry = gr.HTML(value="")
+                companion_pulse = gr.HTML(value=_pulse_html(_story_stats()))
                 week_panel = gr.HTML(value="")
                 timeline = gr.HTML(value=_timeline_html())
-            
-            # Chat tab - talk to your journal companion
-            with gr.Tab("Chat"):
-                gr.Markdown("## 💬 Chat with your Companion")
-                gr.Markdown("Ask questions, get ideas, or just talk. Your companion knows your journal.")
-                
-                chat_history = gr.State([])
-                chat_display = gr.Markdown(value="*Start a conversation. Your companion knows your journal entries and can help you think through things.*")
-                
-                with gr.Row():
-                    chat_input = gr.Textbox(
-                    lines=4,
-                        placeholder="Ask your companion anything...",
-                        show_label=False,
-                        scale=4,
-                    )
-                    chat_send = gr.Button("Send", elem_classes=["pc-primary"])
-                
-                def on_chat_start(message, history):
-                    """Immediately add user message + loading indicator to history."""
-                    if not message or not message.strip():
-                        return history, _format_chat(history), ""
-                    new_history = history + [
-                        {"role": "user", "content": message.strip()},
-                        {"role": "assistant", "content": "⏳ Companion is thinking...", "loading": True},
-                    ]
-                    return new_history, _format_chat(new_history), ""
-
-                def on_chat_finish(message, history, model):
-                    """Replace loading indicator with actual model response."""
-                    if not message or not message.strip():
-                        return history, _format_chat(history)
-                    history = history[:-1]
-                    used_model = model or DEFAULT_MODEL
-
-                    try:
-                        results = STORE.search(message, limit=5)
-                        context = "\n".join(
-                            [f"- ({e.when}) {e.text[:200]}" for e in results[:3]]
-                        )
-                    except Exception:
-                        context = ""
-
-                    system = (
-                        "You are a warm, supportive journaling companion. "
-                        "You know the user's journal entries and can reference them naturally. "
-                        "Be helpful, give ideas when asked, but stay within bounds: "
-                        "no medical, legal, or financial advice. "
-                        "Keep responses concise (2-3 sentences). "
-                        "Reference their journal when relevant."
-                    )
-
-                    user_msg = f"Journal context:\n{context}\n\nUser says: {message}"
-
-                    try:
-                        import requests
-                        resp = requests.post(
-                            "http://localhost:11434/api/chat",
-                            json={
-                                "model": used_model,
-                                "messages": [
-                                    {"role": "system", "content": system},
-                                    {"role": "user", "content": user_msg},
-                                ],
-                                "stream": False,
-                                # Cap num_predict so the model can't burn the whole
-                                # budget on "thinking" before producing content.
-                                "options": {"num_predict": 250, "temperature": 0.7},
-                            },
-                            timeout=60,
-                        )
-                        resp.raise_for_status()
-                        raw = resp.json()["message"]["content"]
-                        ai_response = _strip_thinking(raw)
-                    except requests.Timeout:
-                        ai_response = (
-                            "The model took too long to respond. "
-                            "Try a shorter message or a different model."
-                        )
-                    except Exception as exc:
-                        ai_response = (
-                            "I couldn't reach the local model right now. "
-                            "Make sure Ollama is running and try again."
-                        )
-
-                    history = history + [
-                        {"role": "assistant", "content": ai_response}
-                    ]
-                    return history, _format_chat(history)
-
-                chat_send.click(
-                    on_chat_start,
-                    inputs=[chat_input, chat_history],
-                    outputs=[chat_history, chat_display, chat_input],
-                ).then(
-                    on_chat_finish,
-                    inputs=[chat_input, chat_history, model],
-                    outputs=[chat_history, chat_display],
-                )
-                chat_input.submit(
-                    on_chat_start,
-                    inputs=[chat_input, chat_history],
-                    outputs=[chat_history, chat_display, chat_input],
-                ).then(
-                    on_chat_finish,
-                    inputs=[chat_input, chat_history, model],
-                    outputs=[chat_history, chat_display],
-                )
 
                 submit.click(
                     on_submit,
                     inputs=[entry, model],
-                    outputs=[response, timeline, entry, submitted_entry],
+                    outputs=[response, timeline, entry, submitted_entry, companion_pulse],
                 )
                 entry.submit(
                     on_submit,
                     inputs=[entry, model],
-                    outputs=[response, timeline, entry, submitted_entry],
+                    outputs=[response, timeline, entry, submitted_entry, companion_pulse],
                 )
                 week.click(on_week, inputs=[model], outputs=[week_panel])
 
-            with gr.Tab("Insights"):
-                gr.Markdown("## Your Journal Insights")
-                stats = get_entry_stats()
-                streak = get_writing_streak()
-                gr.Markdown(
-                    f'**{stats["total_entries"]}** entries | **{stats["avg_words"]}** avg words'
-                    f' | **{streak["current"]}** day streak | **{streak["longest"]}** longest streak'
-                )
-                gr.Markdown("*Charts coming soon!*")
+        with gr.Accordion("Journal details", open=False):
+            gr.Markdown("### Stats and history")
+            stats = get_entry_stats()
+            streak = get_writing_streak()
+            gr.Markdown(
+                f'**{stats["total_entries"]}** entries | **{stats["avg_words"]}** avg words'
+                f' | **{streak["current"]}** day streak | **{streak["longest"]}** longest streak'
+            )
+            gr.Markdown("*Charts coming soon!*")
 
         with gr.Accordion("\U0001f527 Developer Tools", open=False):
             gr.Markdown("**Warning:** These actions are destructive and cannot be undone.")
@@ -518,38 +595,60 @@ def build() -> gr.Blocks:
             def on_clear_data():
                 from engine.store import clear_all_entries
                 count = clear_all_entries(DB_PATH)
-                return f"Deleted {count} entries. Refresh page to see changes."
+                return (
+                    f"Deleted {count} entries. The page has been reset.",
+                    _timeline_html(),
+                    "",
+                    "",
+                    "",
+                    _pulse_html(_story_stats()),
+                    "",
+                )
 
             def on_reload_demo():
                 from engine.store import seed_demo_data, clear_all_entries
                 clear_all_entries(DB_PATH)
                 count = seed_demo_data(DB_PATH)
-                return f"Cleared and reloaded {count} demo entries."
+                return (
+                    f"Cleared and reloaded {count} demo entries.",
+                    _timeline_html(),
+                    "",
+                    "",
+                    "",
+                    _pulse_html(_story_stats()),
+                    "",
+                )
 
-            clear_btn.click(on_clear_data, outputs=[dev_status])
-            reload_btn.click(on_reload_demo, outputs=[dev_status])
+            clear_btn.click(
+                on_clear_data,
+                outputs=[dev_status, timeline, response, submitted_entry, week_panel, companion_pulse, entry],
+            )
+            reload_btn.click(
+                on_reload_demo,
+                outputs=[dev_status, timeline, response, submitted_entry, week_panel, companion_pulse, entry],
+            )
+
+        gr.HTML(_version_footer_html())
+        gr.HTML(
+            '<div class="pc-footer">'
+            '<a href="https://github.com/KeyArgo/pocket-confidant" target="_blank">'
+            '📦 View on GitHub: KeyArgo/pocket-confidant'
+            '</a>'
+            '</div>'
+        )
 
     # Remember whether the theme/css still need to be supplied at launch() time.
     demo._pc_needs_launch_css = not _accepts_ctor_css
-    
-    # Version footer (auto-generated by scripts/bump_version.py)
-    gr.HTML(_version_footer_html())
 
-    # GitHub link at bottom
-    gr.HTML(
-        '<div style="text-align: center; padding: 20px 0; margin-top: 20px; '
-        'border-top: 1px solid #e0d4bd;">'
-        '<a href="https://github.com/KeyArgo/pocket-confidant" target="_blank" '
-        'style="color: #6b6253; text-decoration: none; font-size: 0.9rem;">'
-        '📦 View on GitHub: KeyArgo/pocket-confidant'
-        '</a>'
-        '</div>'
-    )
-    
     return demo
 
 
 def main() -> None:
+    if gr is None:
+        raise RuntimeError(
+            "gradio is not installed in this environment. "
+            "Run: uv pip install -r apps/confidant/requirements.txt"
+        )
     demo = build()
     launch_kwargs = dict(server_name="0.0.0.0")
     if getattr(demo, "_pc_needs_launch_css", False):
@@ -560,4 +659,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

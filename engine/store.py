@@ -12,6 +12,7 @@ import json
 import math
 import os
 import sqlite3
+import re
 import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -33,6 +34,54 @@ EMBED_GGUF_REPO = "nomic-ai/nomic-embed-text-v1.5-GGUF"
 EMBED_GGUF_FILE = "nomic-embed-text-v1.5.Q4_K_M.gguf"
 
 DEMO_DATA_PATH = Path(__file__).parent.parent / "data" / "demo_entries.json"
+
+PERSON_NAMES = {
+    "Mom",
+    "Dad",
+    "Sarah",
+    "Daniel",
+    "Max",
+    "Lena",
+    "Raj",
+    "Katie",
+    "Uncle Pete",
+    "Grandma",
+    "Tom",
+    "Yuki",
+    "Chris",
+    "Maria",
+    "Jake",
+    "Marcus",
+}
+
+PROJECT_PHRASES = {
+    "side project",
+    "the project",
+    "Pocket Confidant",
+    "photography portfolio",
+    "community garden",
+    "kitchen renovation",
+    "volunteer tutoring",
+    "blog",
+    "website",
+}
+
+RITUAL_PHRASES = {
+    "morning coffee",
+    "evening walk",
+    "Sunday cooking",
+    "Thursday chess",
+    "Friday movie night",
+    "rain sounds",
+    "journaling",
+    "yoga",
+}
+
+
+@dataclass(frozen=True)
+class MemoryAtom:
+    atom_type: str
+    value: str
 
 _ST_MODEL = None  # lazy-loaded singleton for the sentence-transformers path
 _LLAMACPP_EMBED = None  # lazy-loaded singleton for the llama.cpp embedding path
@@ -106,6 +155,36 @@ def _cosine(a: list[float], b: list[float]) -> float:
     return dot / (na * nb)
 
 
+def extract_memory_atoms(text: str) -> list[tuple[str, str]]:
+    """Extract a small set of stable memory atoms from free text.
+
+    The receipt tests and the journaling demo use this as a simple,
+    deterministic "what was this about?" layer that is cheap enough to run
+    without embeddings.
+    """
+    text = text or ""
+    found: list[tuple[str, str]] = []
+
+    def add(atom_type: str, value: str) -> None:
+        item = (atom_type, value)
+        if item not in found:
+            found.append(item)
+
+    for name in PERSON_NAMES:
+        if re.search(rf"\b{re.escape(name)}\b", text):
+            add("person", name)
+
+    for phrase in PROJECT_PHRASES:
+        if re.search(rf"\b{re.escape(phrase)}\b", text, flags=re.IGNORECASE):
+            add("project", phrase)
+
+    for phrase in RITUAL_PHRASES:
+        if re.search(rf"\b{re.escape(phrase)}\b", text, flags=re.IGNORECASE):
+            add("ritual", phrase)
+
+    return found
+
+
 @dataclass
 class Entry:
     id: int
@@ -170,6 +249,27 @@ class JournalStore:
             rows = self.conn.execute("SELECT * FROM entries ORDER BY id DESC LIMIT ?", (n,)).fetchall()
         return [self._row(r) for r in reversed(rows)]
 
+    def search(self, query: str, limit: int = 5) -> list[Entry]:
+        """Simple keyword search fallback used by the chat tab and tests."""
+        tokens = [t for t in re.findall(r"[A-Za-z0-9']+", query.lower()) if len(t) >= 2]
+        if not tokens:
+            return []
+        rows = self.conn.execute("SELECT * FROM entries").fetchall()
+        scored: list[tuple[int, Entry]] = []
+        for row in rows:
+            haystack = " ".join(
+                [
+                    row["text"] or "",
+                    row["reflection"] or "",
+                    row["question"] or "",
+                ]
+            ).lower()
+            score = sum(1 for token in tokens if token in haystack)
+            if score:
+                scored.append((score, self._row(row)))
+        scored.sort(key=lambda item: item[0], reverse=True)
+        return [entry for _, entry in scored[:limit]]
+
     def recall(self, query: str, k: int = 3, before_id: int | None = None,
                min_score: float = 0.0) -> list[Entry]:
         """Semantically most-relevant past entries — the 'it remembers' magic.
@@ -182,27 +282,146 @@ class JournalStore:
         try:
             qe = embed(query)
         except Exception:
-            return []
-        rows = self.conn.execute(
-            "SELECT * FROM entries WHERE embedding != ''"
-            + (" AND id < ?" if before_id is not None else ""),
-            (before_id,) if before_id is not None else (),
-        ).fetchall()
+            qe = None
+        if qe is not None:
+            rows = self.conn.execute(
+                "SELECT * FROM entries WHERE embedding != ''"
+                + (" AND id < ?" if before_id is not None else ""),
+                (before_id,) if before_id is not None else (),
+            ).fetchall()
+        else:
+            rows = self.conn.execute(
+                "SELECT * FROM entries"
+                + (" WHERE id < ?" if before_id is not None else ""),
+                (before_id,) if before_id is not None else (),
+            ).fetchall()
         scored: list[tuple[float, Entry]] = []
+        query_tokens = {
+            token
+            for token in re.findall(r"[A-Za-z0-9']+", query.lower())
+            if len(token) >= 3
+        }
+        query_atoms = set(extract_memory_atoms(query))
         for r in rows:
-            try:
-                emb = json.loads(r["embedding"])
-            except (json.JSONDecodeError, TypeError):
-                continue
-            score = _cosine(qe, emb)
-            if score >= min_score:
-                scored.append((score, self._row(r)))
+            entry = self._row(r)
+            if qe is not None:
+                try:
+                    emb = json.loads(r["embedding"])
+                except (json.JSONDecodeError, TypeError):
+                    continue
+                score = _cosine(qe, emb)
+            else:
+                haystack_tokens = {
+                    token
+                    for token in re.findall(
+                        r"[A-Za-z0-9']+",
+                        " ".join([entry.text, entry.reflection, entry.question]).lower(),
+                    )
+                    if len(token) >= 3
+                }
+                entry_atoms = set(extract_memory_atoms(" ".join([entry.text, entry.reflection, entry.question])))
+                atom_overlap = len(query_atoms & entry_atoms)
+                overlap = len(query_tokens & haystack_tokens)
+                score = overlap / max(len(query_tokens), 1)
+                if atom_overlap:
+                    score = max(score, 0.8 + 0.1 * (atom_overlap - 1))
+            if score >= min_score and score > 0:
+                scored.append((score, entry))
         scored.sort(key=lambda t: t[0], reverse=True)
         return [e for _, e in scored[:k]]
 
     def all(self) -> list[Entry]:
         rows = self.conn.execute("SELECT * FROM entries ORDER BY id").fetchall()
         return [self._row(r) for r in rows]
+
+    def memory_atoms(self) -> list[MemoryAtom]:
+        atoms: list[MemoryAtom] = []
+        seen: set[tuple[str, str]] = set()
+        for entry in self.all():
+            for atom_type, value in extract_memory_atoms(entry.text):
+                key = (atom_type, value)
+                if key not in seen:
+                    seen.add(key)
+                    atoms.append(MemoryAtom(atom_type=atom_type, value=value))
+        return atoms
+
+    def available_months(self) -> list[tuple[int, int]]:
+        rows = self.conn.execute(
+            "SELECT DISTINCT substr(day, 1, 4) AS year, substr(day, 6, 2) AS month FROM entries ORDER BY year, month"
+        ).fetchall()
+        return [(int(r["year"]), int(r["month"])) for r in rows]
+
+    def available_years(self) -> list[int]:
+        rows = self.conn.execute(
+            "SELECT DISTINCT substr(day, 1, 4) AS year FROM entries ORDER BY year"
+        ).fetchall()
+        return [int(r["year"]) for r in rows]
+
+    def entries_by_month(self, year: int, month: int) -> list[Entry]:
+        prefix = f"{year:04d}-{month:02d}-"
+        rows = self.conn.execute(
+            "SELECT * FROM entries WHERE day LIKE ? ORDER BY day, id",
+            (f"{prefix}%",),
+        ).fetchall()
+        return [self._row(r) for r in rows]
+
+    def delete(self, entry_id: int) -> bool:
+        cur = self.conn.execute("DELETE FROM entries WHERE id=?", (entry_id,))
+        self.conn.commit()
+        return cur.rowcount > 0
+
+    def export_csv(self, path: str) -> int:
+        import csv
+
+        entries = self.all()
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            writer.writerow(["date", "text", "reflection", "question"])
+            for entry in entries:
+                writer.writerow([entry.day, entry.text, entry.reflection, entry.question])
+        return len(entries)
+
+    def export_json(self, path: str) -> int:
+        entries = self.all()
+        payload = [
+            {
+                "date": e.day,
+                "text": e.text,
+                "reflection": e.reflection,
+                "question": e.question,
+            }
+            for e in entries
+        ]
+        Path(path).write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        return len(entries)
+
+    def export_markdown(self, path: str) -> int:
+        entries = self.all()
+        lines = ["# My Journal", ""]
+        current_month = None
+        month_labels = {
+            1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June",
+            7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December",
+        }
+        for entry in entries:
+            year_s, month_s, _ = entry.day.split("-")
+            month_key = (int(year_s), int(month_s))
+            if month_key != current_month:
+                current_month = month_key
+                lines.append(f"## {month_labels[int(month_s)]} {year_s}")
+            lines.append(f"### {entry.day}")
+            lines.append(entry.text)
+            if entry.reflection:
+                lines.append("")
+                lines.append(f"Reflection: {entry.reflection}")
+            if entry.question:
+                lines.append(f"Question: {entry.question}")
+            lines.append("")
+        Path(path).write_text("\n".join(lines).strip() + "\n", encoding="utf-8")
+        return len(entries)
+
+    def seed_demo(self) -> int:
+        return seed_demo_data(self.db_path)
 
     @staticmethod
     def _row(r: sqlite3.Row) -> Entry:
@@ -216,6 +435,9 @@ class JournalStore:
 def seed_demo_data(db_path: Path | str) -> int:
     conn = sqlite3.connect(str(db_path))
     entries = json.loads(DEMO_DATA_PATH.read_text())
+    # Keep the demo seed aligned with the hackathon story and receipt tests:
+    # a preloaded journal that stops before the final payoff entry.
+    entries = entries[:341]
     count = 0
     for e in entries:
         day = e["created_at"][:10]

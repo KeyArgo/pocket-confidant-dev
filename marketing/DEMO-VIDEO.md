@@ -49,6 +49,7 @@ Then land the honest-fit line and the closing card.
 
 ### Beat 2 · Off the grid (the proof) — `0:20–0:33`
 - **Screen:** Cut to the actual Pocket Confidant Gradio app, open in a browser. Cursor moves up to the system menu bar. **Click Wi-Fi → toggle OFF.** Then **turn ON Airplane Mode** (show the airplane icon light up). Network indicator clearly shows *no connection*.
+- **Screen:** The new landing panel is visible first: the private journal explanation on one side, and the living companion pulse on the other. Then move straight into the Wi-Fi toggle proof.
 - **On-screen text (big, centered, holds 2s):** **NO WIFI. NO CLOUD. STILL WORKS.**
 - **VO:** "Watch this. Wifi off. Airplane mode on. No connection at all… and it still works. The whole thing runs on a small model, right here on the machine."
 - **B-roll:** macro shot of the airplane-mode toggle flipping is ideal — it's the literal goosebumps frame. Hold on the "no signal" icon for a beat.
@@ -79,6 +80,7 @@ Then land the honest-fit line and the closing card.
 
 ### Beat 5 · The honest-fit line — `1:05–1:13`
 - **Screen:** Clean slate. Four short lines fade in one at a time over a calm background:
+  - *The companion's pulse changes as the journal grows.*
   - *A small model. Running on your device.*
   - *Your diary never leaves it.*
   - *No account. No subscription.*

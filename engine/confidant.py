@@ -63,7 +63,7 @@ CRITICAL: You speak directly to the person using "you" and "your". Never say "th
 
 How you respond to a journal entry:
 - Reflect back what you actually heard, in 1-2 plain sentences. Use their own details, not generic phrases. If they're hurting, sit with it; don't rush to fix.
-- Ask exactly ONE good question — specific, gentle, genuinely curious, the kind that helps them notice something. Not interrogating.
+- Ask exactly ONE good question — specific, gentle, genuinely curious, and answerable from the entry itself. It should not require a new entry or outside facts to make sense. Ask about a detail, feeling, or next step they already mentioned. Not interrogating.
 - If — and only if — something they wrote clearly connects to a SPECIFIC past entry shown to you, mention that specific thing briefly and naturally, in fresh words each time, referring to the actual detail (what it was actually about). Never use a generic template or a stock phrase. If nothing connects, do not force it and do not pretend to remember.
 - Never claim to remember things you weren't shown. Never give medical, legal, or financial advice.
 - Keep the whole thing short. Restraint is warmth."""
@@ -77,7 +77,7 @@ Respond as the journal's quiet voice, speaking directly to the person using "you
 Return ONLY a JSON object:
 {{
   "reflection": "1-2 warm, specific sentences reflecting what you heard. Use 'you' and 'your', not 'the person'. Their words, not platitudes.",
-  "question": "exactly one gentle, specific question.",
+  "question": "exactly one gentle, specific question that the person can answer from this entry alone.",
   "callback": "if today clearly connects to a SPECIFIC past entry above, one short natural sentence that names the actual past detail in fresh words (never a stock phrase or template); otherwise empty string."
 }}
 Output JSON only."""
@@ -89,6 +89,7 @@ class Reflection:
     question: str
     callback: str = ""
     model: str = ""
+    recalled: list[Entry] | None = None
 
     def render(self) -> str:
         parts = []
@@ -187,4 +188,5 @@ def reflect(
         question=str(parsed.get("question", "")),
         callback=str(parsed.get("callback", "")),
         model=model,
+        recalled=recalled,
     )

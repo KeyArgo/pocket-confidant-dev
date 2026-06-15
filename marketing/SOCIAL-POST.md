@@ -70,7 +70,7 @@ Live on Hugging Face Spaces (Gradio). Link in the comments. I'd love your honest
 
 ## 5. Alt-text for attached video / screenshot (accessibility + reach)
 
-> Screen recording of Pocket Confidant, a local AI journaling app with a custom Gradio interface. A user types a short diary entry. Below it, the companion replies with a brief two-sentence reflection in plain language, then a single gentle question. A small note shows it gently recalling a related entry from a few days earlier. A badge in the corner reads "100% on-device — no cloud." No account, login, or network indicator is shown; the app runs offline.
+> Screen recording of Pocket Confidant, a local AI journaling app with a custom Gradio interface. The landing screen shows a living companion pulse next to the private journal pitch. A user types a short diary entry. Below it, the companion replies with a brief two-sentence reflection in plain language, then a single gentle question. A small note shows it gently recalling a related entry from a few days earlier. A badge in the corner reads "100% on-device — no cloud." No account, login, or network indicator is shown; the app runs offline.
 
 ---
 
