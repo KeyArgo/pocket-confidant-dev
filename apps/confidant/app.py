@@ -131,6 +131,7 @@ def _landing_html() -> str:
         '<div class="pc-hero" style="background: linear-gradient(180deg, rgba(255,253,248,0.99), rgba(236,225,206,0.99)); color: #2f281f;">'
         '<div class="pc-hero-kicker" style="color: #7a866c;">Private reflection, not a chatbot</div>'
         '<h1 style="color: #2f281f; opacity: 1;">Write one entry. Get one reflection. See the pattern.</h1>'
+        '<div class="pc-hero-line">A private daily journal that notices what keeps repeating.</div>'
         '<p class="pc-hero-copy" style="color: #473c2f;">'
         'Pocket Confidant is a private journal on your device. You write about your day, it gives back '
         'one reflection and one question, then it reaches for a past entry only when the match is real.'
@@ -189,8 +190,8 @@ def _utility_strip_html() -> str:
     return (
         '<div class="pc-utility-strip">'
         '<span style="color: #4f4335;">Private by design</span>'
-        '<span style="color: #4f4335;">One reflection</span>'
-        '<span style="color: #4f4335;">One good question</span>'
+        '<span style="color: #4f4335;">Reflection every day</span>'
+        '<span style="color: #4f4335;">One grounded question</span>'
         '<span style="color: #4f4335;">Memory only when it fits</span>'
         '</div>'
     )
@@ -202,8 +203,8 @@ def _how_it_works_html() -> str:
         '<div class="pc-explainer-kicker">How it works</div>'
         '<div class="pc-explainer-grid">'
         '<div class="pc-step"><div class="pc-step-num">1</div><div><div class="pc-step-title">Write</div><div class="pc-step-copy">Type one real line about today.</div></div></div>'
-        '<div class="pc-step"><div class="pc-step-num">2</div><div><div class="pc-step-title">Reflect</div><div class="pc-step-copy">Pocket Confidant returns one short reflection and one question.</div></div></div>'
-        '<div class="pc-step"><div class="pc-step-num">3</div><div><div class="pc-step-title">Remember</div><div class="pc-step-copy">If a past entry truly matches, it pulls that memory back.</div></div></div>'
+        '<div class="pc-step"><div class="pc-step-num">2</div><div><div class="pc-step-title">Reflect</div><div class="pc-step-copy">You always get a short reflection and one grounded question.</div></div></div>'
+        '<div class="pc-step"><div class="pc-step-num">3</div><div><div class="pc-step-title">Remember</div><div class="pc-step-copy">Only related past entries come back, so memory stays selective.</div></div></div>'
         '</div>'
         '<div class="pc-explainer-foot">Private on your device. No cloud. No account.</div>'
         '</div>'
@@ -288,10 +289,16 @@ def _empty_state_html() -> str:
 
 def _timeline_html() -> str:
     """History of past entries, most-recent first, with the companion's echo."""
-    entries = STORE.all()
+    entries = sorted(STORE.all(), key=lambda e: (e.ts, e.id), reverse=True)
     if not entries:
         return _empty_state_html()
-    blocks = ['<div class="pc-timeline-head">Your journal</div>']
+    blocks = [
+        '<div class="pc-timeline-shell">',
+        '<div class="pc-timeline-top">',
+        '<div class="pc-timeline-head">Your journal</div>',
+        '<div class="pc-timeline-sub">Most recent entries first, with the companion\'s note beneath each one.</div>',
+        '</div>',
+    ]
     for e in reversed(entries):  # most recent first
         block = ['<div class="pc-entry-block">']
         block.append(f'<div class="pc-date">{_esc(e.when)}</div>')
@@ -306,6 +313,79 @@ def _timeline_html() -> str:
             block.append("".join(echo))
         block.append("</div>")
         blocks.append("\n".join(block))
+    blocks.append("</div>")
+    return "\n".join(blocks)
+
+
+def _recent_entries_html(limit: int = 3) -> str:
+    """Compact preview of the newest entries so the journal is visible immediately."""
+    entries = sorted(STORE.all(), key=lambda e: (e.ts, e.id), reverse=True)
+    if not entries:
+        return (
+            '<div class="pc-recent-shell">'
+            '<div class="pc-timeline-head">Recent entries</div>'
+            '<div class="pc-empty">No entries yet. Write the first line to start the journal.</div>'
+            '</div>'
+        )
+    recent = entries[:limit]
+    blocks = [
+        '<div class="pc-recent-shell">',
+        '<div class="pc-timeline-head">Recent entries</div>',
+    ]
+    for e in recent:
+        block = ['<div class="pc-recent-entry">']
+        block.append(f'<div class="pc-date">{_esc(e.when)}</div>')
+        snippet = (e.text or "").strip()
+        if len(snippet) > 140:
+            snippet = snippet[:140].rstrip() + "..."
+        block.append(f'<div class="pc-text">{_esc(snippet)}</div>')
+        if (e.reflection and e.reflection.strip()) or (e.question and e.question.strip()):
+            echo = ['<div class="pc-echo">']
+            if e.reflection and e.reflection.strip():
+                echo.append(_esc(e.reflection))
+            if e.question and e.question.strip():
+                echo.append(f'<span class="pc-q"> {_esc(e.question)}</span>')
+            echo.append("</div>")
+            block.append("".join(echo))
+        block.append("</div>")
+        blocks.append("\n".join(block))
+    blocks.append("</div>")
+    return "\n".join(blocks)
+
+
+def _recent_entries_html(limit: int = 3) -> str:
+    """Compact preview of the newest entries so the journal is visible immediately."""
+    entries = STORE.all()
+    if not entries:
+        return (
+            '<div class="pc-recent-shell">'
+            '<div class="pc-timeline-head">Recent entries</div>'
+            '<div class="pc-empty">No entries yet. Write the first line to start the journal.</div>'
+            '</div>'
+        )
+    recent = list(reversed(entries[-limit:]))
+    blocks = [
+        '<div class="pc-recent-shell">',
+        '<div class="pc-timeline-head">Recent entries</div>',
+    ]
+    for e in recent:
+        block = ['<div class="pc-recent-entry">']
+        block.append(f'<div class="pc-date">{_esc(e.when)}</div>')
+        snippet = (e.text or "").strip()
+        if len(snippet) > 140:
+            snippet = snippet[:140].rstrip() + "..."
+        block.append(f'<div class="pc-text">{_esc(snippet)}</div>')
+        if (e.reflection and e.reflection.strip()) or (e.question and e.question.strip()):
+            echo = ['<div class="pc-echo">']
+            if e.reflection and e.reflection.strip():
+                echo.append(_esc(e.reflection))
+            if e.question and e.question.strip():
+                echo.append(f'<span class="pc-q"> {_esc(e.question)}</span>')
+            echo.append("</div>")
+            block.append("".join(echo))
+        block.append("</div>")
+        blocks.append("\n".join(block))
+    blocks.append("</div>")
     return "\n".join(blocks)
 
 
@@ -537,6 +617,7 @@ def build() -> gr.Blocks:
 
         with gr.Tabs():
             with gr.Tab("Journal"):
+                gr.HTML(_recent_entries_html())
                 gr.HTML(_utility_strip_html())
                 entry = gr.Textbox(
                     elem_id="pc-entry",
